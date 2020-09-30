@@ -1,7 +1,7 @@
 package com.example.facultative.entity;
 
-import com.example.facultative.entity.enums.Role;
-import com.example.facultative.entity.enums.Status;
+import com.example.facultative.entity.enums.UserRole;
+import com.example.facultative.entity.enums.UserStatus;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,38 +15,58 @@ import java.util.Collections;
 @Table(name = "usr")
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
-public class User extends AbstractEntity {
+@EqualsAndHashCode
+@Builder
+public class User implements UserDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "active")
-    @Enumerated(value = EnumType.STRING)
-    private Status status;
+    @Column(unique = true, nullable = false)
+    private String username;
 
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "login")
-    private String login;
-
-    @Column(name = "first_name")
+    @Column(nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(nullable = false)
     private String lastName;
 
-    @Column(name = "password")
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
+    @Enumerated(EnumType.STRING)
+    private UserStatus userStatus;
+
     private String password;
 
-    @Column(name = "role")
-    @Enumerated(value = EnumType.STRING)
-    private Role role;
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    @Column(name = "path_to_photo")
-    private String pathToPhoto;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority(getRole().name()));
+    }
 
-    public User() {
-        super();
-        this.role = Role.STUDENT;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

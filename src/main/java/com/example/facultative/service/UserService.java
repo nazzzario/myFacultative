@@ -1,17 +1,8 @@
 package com.example.facultative.service;
 
-import com.example.facultative.entity.User;
-
-import java.util.List;
+import com.example.facultative.entity.dto.UserDto;
 
 public interface UserService {
-    User register(User user);
-
-    List<User> getAll();
-
-    User findByLogin(String login);
-
-    User findById(Long id);
-
-    void delete(Long id);
+    void saveUser(UserDto userDto);
+    void saveTeacher(UserDto userDto);
 }

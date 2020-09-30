@@ -1,0 +1,33 @@
+<header th:fragment="navbar"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">myFacultative</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+                </li>
+                <li  sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link" href="#">My Courses</a>
+                </li>
+
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                    <a class="nav-link" href="/admin/registration">Register Teacher</a>
+                </li>
+            </ul>
+        </div>
+        <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+            <input class="btn btn-outline-danger" type="submit" value="Sign Out">
+        </form>
+        <form th:action="@{/login}" method="post" sec:authorize="!isAuthenticated()">
+            <input class="btn btn-outline-success" type="submit" value="Sign In">
+        </form>
+    </nav>
+</header>

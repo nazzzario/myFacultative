@@ -1,56 +1,50 @@
 package com.example.facultative.service.impl;
 
 import com.example.facultative.entity.User;
-import com.example.facultative.entity.enums.Role;
-import com.example.facultative.entity.enums.Status;
+import com.example.facultative.entity.dto.UserDto;
+import com.example.facultative.entity.enums.UserRole;
+import com.example.facultative.entity.enums.UserStatus;
 import com.example.facultative.repo.UserRepository;
 import com.example.facultative.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 @Service
-public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+public class UserServiceImpl implements UserService{
+
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+
+    public void saveUser(UserDto userDto) {
+        User user = User.builder()
+                .username(userDto.getUsername())
+                .firstName(userDto.getFirstName())
+                .lastName(userDto.getLastName())
+                .email(userDto.getEmail())
+                .password(userDto.getPassword())
+                .role(UserRole.STUDENT)
+                .userStatus(UserStatus.ACTIVE)
+                .build();
+        userRepository.save(user);
     }
 
     @Override
-    public User register(User user) {
-        user.setRole(Role.STUDENT);
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setStatus(Status.ACTIVE);
-
-        User registeredUser = userRepository.save(user);
-        return registeredUser;
-    }
-
-    @Override
-    public List<User> getAll() {
-        List<User> result = userRepository.findAll();
-        return result;
-    }
-
-    @Override
-    public User findByLogin(String login) {
-        User result = userRepository.findByLogin(login);
-        return result;
-    }
-
-    @Override
-    public User findById(Long id) {
-        User result = userRepository.findById(id).orElse(null);
-        return result;
-    }
-
-    @Override
-    public void delete(Long id) {
-        userRepository.deleteById(id);
+    public void saveTeacher(UserDto userDto) {
+        User user = User.builder()
+                .username(userDto.getUsername())
+                .firstName(userDto.getFirstName())
+                .lastName(userDto.getLastName())
+                .email(userDto.getEmail())
+//                .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
+                .password(userDto.getPassword())
+                .role(UserRole.TEACHER)
+                .userStatus(UserStatus.ACTIVE)
+                .build();
+        userRepository.save(user);
     }
 }

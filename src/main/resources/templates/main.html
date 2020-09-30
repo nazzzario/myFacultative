@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <div th:include="fragments/bootstrap :: head"></div>
+    <title>Welcome to myFacultative</title>
+</head>
+<header>
+    <div th:include="fragments/navbar :: navbar"></div>
+</header>
+<body>
+<h1 class="ml-4" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<div th:include="fragments/task"></div>
+<div th:include="fragments/bootstrap :: script"></div>
+</body>
+<footer th:insert="fragments/footer :: footer"></footer>
+</html>

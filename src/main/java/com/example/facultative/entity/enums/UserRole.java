@@ -1,5 +1,5 @@
 package com.example.facultative.entity.enums;
 
-public enum  Role {
+public enum UserRole  {
     ADMIN,STUDENT,TEACHER;
 }
