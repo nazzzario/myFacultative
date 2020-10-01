@@ -1,13 +1,13 @@
-package com.example.facultative.controller;
+package com.example.facultative.controller.admin;
 
+import com.example.facultative.entity.Course;
 import com.example.facultative.entity.Subject;
 import com.example.facultative.entity.User;
 import com.example.facultative.entity.dto.CourseDto;
-import com.example.facultative.entity.dto.UserDto;
+import com.example.facultative.entity.enums.CourseStatus;
 import com.example.facultative.entity.enums.Languages;
 import com.example.facultative.entity.enums.UserStatus;
 import com.example.facultative.service.CourseService;
-import com.example.facultative.service.SessionService;
 import com.example.facultative.service.SubjectService;
 import com.example.facultative.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,51 +19,47 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
-//TODO refactor this class
 
 @Slf4j
 @Controller
 @RequestMapping("/admin")
 @PreAuthorize("hasAuthority('ADMIN')")
-public class AdminController {
+public class AdminCourseController {
 
     private final UserService userService;
     private final CourseService courseService;
     private final SubjectService subjectService;
-    private final SessionService sessionService;
 
     @Autowired
-    public AdminController(UserService userService, CourseService courseService,
-                           SubjectService subjectService, SessionService sessionService) {
+    public AdminCourseController(UserService userService, CourseService courseService,
+                           SubjectService subjectService) {
         this.userService = userService;
         this.courseService = courseService;
         this.subjectService = subjectService;
-        this.sessionService = sessionService;
-    }
-
-    @GetMapping("/registration")
-    public String registration(@ModelAttribute("userDto") UserDto userDto, Model model) {
-        model.addAttribute(userDto);
-        return "teacher_registration";
-    }
-
-    @PostMapping("/registration")
-    public String createUser(UserDto userDto) {
-        userService.saveTeacher(userDto);
-        log.info("Teacher {} successfully registered ", userDto.getUsername());
-        return "teacher_registration";
     }
 
     @GetMapping("/course")
     public String course(@ModelAttribute("courseDto") CourseDto courseDto, Model model){
         model.addAttribute("courseDto", courseDto);
+        return "create_course";
+    }
+
+    @ModelAttribute("teachers")
+    public void getTeachers(Model model){
         List<User> allTeachers = userService.findAllTeachers();
         model.addAttribute("teachers", allTeachers);
+    }
+
+    @ModelAttribute("subjects")
+    public void getSubjects(Model model){
         List<Subject> allSubjects = subjectService.getAllSubjects();
         model.addAttribute("subjects",allSubjects);
+    }
+
+    @ModelAttribute("languages")
+    public void getLanguages(Model model){
         List<Languages> languagesList = Arrays.asList(Languages.values());
         model.addAttribute("languages",languagesList);
-        return "create_course";
     }
 
     @PostMapping("/course")
@@ -73,29 +69,42 @@ public class AdminController {
         return "create_course";
     }
 
-    //TODO try to remove logic from controller
-    @GetMapping("/users")
-    public String getAllUsers(Model model){
-        List<User> allTeachersAndStudents = userService.findAllTeachersAndStudents();
-        List<String> allBlockedUsersName = userService.getAllBlockedUsersName();
-        for(String userName : allBlockedUsersName){
-            sessionService.expireUserSessions(userName);
-        }
-        model.addAttribute("users",allTeachersAndStudents);
-        return "users";
+    @GetMapping("/courses")
+    public String findAll(Model model){
+        List<Course> courses = courseService.findAll();
+        model.addAttribute("courses", courses);
+        return "courses";
     }
 
-    @GetMapping("user-block/{id}")
-    public String blockUser(@PathVariable("id") Long id){
-        userService.changeUserStatus(id, UserStatus.BLOCKED);
-        return "redirect:/admin/users";
+    @GetMapping("course-delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id){
+        courseService.deleteById(id);
+        return "redirect:/admin/courses";
     }
 
-    @GetMapping("user-unblock/{id}")
-    public String unblockUser(@PathVariable("id") Long id){
-        userService.changeUserStatus(id, UserStatus.ACTIVE);
-        return "redirect:/admin/users";
+    @GetMapping("/course-update/{id}")
+    public String updateCourseForm(@PathVariable("id")Long id, Model model){
+        Course courseById = courseService.findCourseById(id);
+        model.addAttribute("courseDto", courseById);
+        return "course_update";
     }
 
+    @PostMapping("/course-update")
+    public String updateCourse(CourseDto courseDto){
+        courseService.saveCourse(courseDto);
+        return "redirect:/admin/courses";
+    }
+
+    @GetMapping("course-start/{id}")
+    public String startCourse(@PathVariable("id") Long id) {
+        courseService.changeCourseStatus(id, CourseStatus.STARTED);
+        return "redirect:/admin/courses";
+    }
+
+    @GetMapping("course-end/{id}")
+    public String endCourse(@PathVariable("id") Long id) {
+        courseService.changeCourseStatus(id, CourseStatus.FINISHED);
+        return "redirect:/admin/courses";
+    }
 
 }

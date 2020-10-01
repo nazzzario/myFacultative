@@ -23,6 +23,9 @@
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                     <a class="nav-link" href="/admin/users">Users List</a>
                 </li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                    <a class="nav-link" href="/admin/courses">Courses List</a>
+                </li>
             </ul>
         </div>
         <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0">
@@ -32,7 +35,7 @@
         <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
             <input class="btn btn-outline-danger" type="submit" value="Sign Out">
         </form>
-        <form th:action="@{/login}" method="post" sec:authorize="!isAuthenticated()">
+        <form th:action="@{/logout}" method="post" sec:authorize="!isAuthenticated()">
             <input class="btn btn-outline-success" type="submit" value="Sign In">
         </form>
     </nav>

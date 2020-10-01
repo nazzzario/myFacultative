@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <div th:include="fragments/bootstrap :: head"></div>
+
+</head>
+<body class="text-center">
+<table>
+    <thead>
+    <tr>
+        <th> Name</th>
+        <th> Description</th>
+        <th> Start date</th>
+        <th> End date</th>
+        <th> Status</th>
+        <th> Subject</th>
+        <th> Teacher</th>
+        <th> Language</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${courses.empty}">
+        <td colspan="2"> No Courses Available</td>
+    </tr>
+    <tr th:each="course : ${courses} ">
+        <td><span th:text="${course.courseName}"> </span></td>
+        <td><span th:text="${course.description}"> </span></td>
+        <td><span th:text="${course.startDate}"></span></td>
+        <td><span th:text="${course.endDate}"></span></td>
+        <td><span th:text="${course.status}"></span></td>
+        <td><span th:text="${course.subject.name}"></span></td>
+        <td><span th:text="${course.teacher.firstName} + ' ' + ${course.teacher.lastName}"></span></td>
+        <td><span th:text="${course.courseLanguage}"></span></td>
+        <td><a th:href="@{course-update/{id}(id=${course.id})}">Edit</a></td>
+        <td><a  th:href="@{course-delete/{id}(id=${course.id})}">Delete</a></td>
+
+        <td>
+            <div th:switch="${course.status.name()}">
+                <a th:case="'NOT_STARTED'" th:href="@{course-start/{id}(id=${course.id})}">Start</a>
+                <a th:case="'STARTED'" th:href="@{course-end/{id}(id=${course.id})}">Finish</a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
