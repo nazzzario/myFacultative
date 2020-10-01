@@ -1,15 +1,15 @@
 package com.example.facultative.service.impl;
 
 import com.example.facultative.entity.Course;
-import com.example.facultative.entity.User;
 import com.example.facultative.entity.dto.CourseDto;
 import com.example.facultative.entity.enums.CourseStatus;
 import com.example.facultative.repo.CourseRepository;
 import com.example.facultative.service.CourseService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -56,4 +56,10 @@ public class CourseServiceImpl implements CourseService {
         changeCourse.setStatus(courseStatus);
         courseRepository.save(changeCourse);
     }
+
+    @Override
+    public Page<Course> findAllNotStartedCourse(Pageable pageable) {
+        return courseRepository.findAllByStatus(CourseStatus.NOT_STARTED, pageable);
+    }
+
 }

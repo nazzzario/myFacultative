@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <div th:include="fragments/bootstrap :: head"></div>
+</head>
+<header>
+    <div th:include="fragments/navbar :: navbar"></div>
+</header>
+<body>
+<div class="card-columns">
+    <div th:each="course: ${courseCatalog}">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${course.courseName}"></h5>
+                <h6 class="card-subtitle mb-2 text-muted"
+                    th:text="${course.teacher.firstName} + ' ' + ${course.teacher.lastName}"></h6>
+                <p class="card-text" th:text="${course.description}"></p>
+                <p class="card-text" th:text="${course.startDate} + ' ' + ${course.endDate}"></p>
+                <a href="#" class="card-link">Join course</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--TODO add pagination-->
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div th:include="fragments/bootstrap :: script"></div>
+</body>
+<footer th:insert="fragments/footer :: footer"></footer>
+</html>

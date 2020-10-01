@@ -17,4 +17,8 @@ public interface UserService {
     void changeUserStatus(Long id, UserStatus userStatus);
 
     List<String> getAllBlockedUsersName();
+
+    User findUserById(Long id);
+
+    User findUserByUsername(String name);
 }
