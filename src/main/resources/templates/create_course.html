@@ -19,12 +19,6 @@
         <input type="date" th:field="*{endDate}"/>
     </div>
 
-    <!--    <select name="languages">-->
-    <!--        <option disabled>Languages</option>-->
-    <!--        <option th:each="language: ${T(com.example.facultative.entity.enums.Languages).values()}"-->
-    <!--                th:value="${language.name().toString()}" th:text="${language.name()}"></option>-->
-    <!--    </select>-->
-
     <select name="language">
         <option disabled>Languages</option>
         <option th:each="language: ${languages}"

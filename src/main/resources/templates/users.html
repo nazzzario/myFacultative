@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <div th:include="fragments/bootstrap :: head"></div>
+
+</head>
+<body class="text-center">
+<table>
+    <thead>
+    <tr>
+        <th> Email</th>
+        <th> Username</th>
+        <th> Name</th>
+        <th> Role</th>
+        <th> Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${users.empty}">
+        <td colspan="2"> No Users Available</td>
+    </tr>
+    <tr th:each="user : ${users} ">
+        <td><span th:text="${user.email}"> </span></td>
+        <td><span th:text="${user.username}"> </span></td>
+        <td><span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></td>
+        <td><span th:text="${user.role}"></span></td>
+        <td><span th:text="${user.userStatus}"></span></td>
+        <td>
+            <div th:switch="${user.userStatus.name()}">
+                <a th:case="'ACTIVE'" th:href="@{user-block/{id}(id=${user.id})}">Block</a>
+                <a th:case="'BLOCKED'" th:href="@{user-unblock/{id}(id=${user.id})}">Unblock</a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

@@ -7,9 +7,12 @@ import com.example.facultative.entity.enums.UserStatus;
 import com.example.facultative.repo.UserRepository;
 import com.example.facultative.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -54,4 +57,27 @@ public class UserServiceImpl implements UserService{
     public List<User> findAllTeachers() {
         return userRepository.findAllByRole(UserRole.TEACHER);
     }
+
+    //TODO improve findAllByRoleIn method
+    @Override
+    public List<User> findAllTeachersAndStudents() {
+        List<UserRole> roles = new ArrayList<>();
+        roles.add(UserRole.TEACHER);
+        roles.add(UserRole.STUDENT);
+        return userRepository.findAllByRoleIn(roles);
+    }
+
+    @Override
+    public void changeUserStatus(Long id, UserStatus userStatus) {
+        User userToChangeStatus = userRepository.getOne(id);
+        userToChangeStatus.setUserStatus(userStatus);
+        userRepository.save(userToChangeStatus);
+    }
+
+    @Override
+    public List<String> getAllBlockedUsersName() {
+        List<User> allByStatus = userRepository.findAllByUserStatus(UserStatus.BLOCKED);
+        return allByStatus.stream().map(User::getUsername).collect(Collectors.toList());
+    }
+
 }

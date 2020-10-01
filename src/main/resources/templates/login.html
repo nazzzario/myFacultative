@@ -11,5 +11,9 @@
     <div><label > Password: <input type="password" name="password"/> </label></div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 </form>
+
+<div class="dialog-row">
+    <label th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-center redText">Mot de passe inconnu</label>
+</div>
 </body>
 </html>
