@@ -1,6 +1,5 @@
 package com.example.facultative.config;
 
-import com.example.facultative.entity.enums.UserRole;
 import com.example.facultative.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

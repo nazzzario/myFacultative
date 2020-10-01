@@ -10,12 +10,15 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
                 </li>
-                <li  sec:authorize="isAuthenticated()" class="nav-item">
+                <li  sec:authorize="isAuthenticated() && hasAuthority('STUDENT')"  class="nav-item">
                     <a class="nav-link" href="#">My Courses</a>
                 </li>
 
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                     <a class="nav-link" href="/admin/registration">Register Teacher</a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                    <a class="nav-link" href="/admin/course">Create course</a>
                 </li>
             </ul>
         </div>

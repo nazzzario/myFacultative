@@ -9,6 +9,8 @@ import com.example.facultative.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -46,5 +48,10 @@ public class UserServiceImpl implements UserService{
                 .userStatus(UserStatus.ACTIVE)
                 .build();
         userRepository.save(user);
+    }
+
+    @Override
+    public List<User> findAllTeachers() {
+        return userRepository.findAllByRole(UserRole.TEACHER);
     }
 }

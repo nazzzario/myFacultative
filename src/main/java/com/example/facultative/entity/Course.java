@@ -3,9 +3,11 @@ package com.example.facultative.entity;
 import com.example.facultative.entity.enums.CourseStatus;
 import com.example.facultative.entity.enums.Languages;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "course")
@@ -15,6 +17,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@Builder
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +25,9 @@ public class Course {
 
     private String courseName;
     private String description;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<User> students;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usr_id")
@@ -34,10 +40,13 @@ public class Course {
     @Enumerated(EnumType.STRING)
     private CourseStatus status;
 
+    @Enumerated(EnumType.STRING)
     private Languages courseLanguage;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
 }
