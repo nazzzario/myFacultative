@@ -44,7 +44,7 @@ public class User implements UserDetails {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "student_courses",
+            name = "student_course",
             joinColumns = {@JoinColumn(name = "student_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "course_id", referencedColumnName = "id")}
     )

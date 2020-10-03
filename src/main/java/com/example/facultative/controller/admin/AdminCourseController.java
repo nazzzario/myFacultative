@@ -6,7 +6,6 @@ import com.example.facultative.entity.User;
 import com.example.facultative.entity.dto.CourseDto;
 import com.example.facultative.entity.enums.CourseStatus;
 import com.example.facultative.entity.enums.Languages;
-import com.example.facultative.entity.enums.UserStatus;
 import com.example.facultative.service.CourseService;
 import com.example.facultative.service.SubjectService;
 import com.example.facultative.service.UserService;
@@ -89,6 +88,7 @@ public class AdminCourseController {
         return "course_update";
     }
 
+    //todo fix update course
     @PostMapping("/course-update")
     public String updateCourse(CourseDto courseDto){
         courseService.saveCourse(courseDto);

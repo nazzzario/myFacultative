@@ -4,7 +4,6 @@ import com.example.facultative.entity.Course;
 import com.example.facultative.entity.User;
 import com.example.facultative.entity.dto.CourseDto;
 import com.example.facultative.entity.enums.CourseStatus;
-import com.example.facultative.entity.enums.UserRole;
 import com.example.facultative.exceptions.CourseNotFoundException;
 import com.example.facultative.repo.CourseRepository;
 import com.example.facultative.repo.UserRepository;
@@ -15,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,8 +68,13 @@ public class CourseServiceImpl implements CourseService {
 
 
     @Override
-    public List<Course> findAllCourseByStudentId(Long id) {
+    public List<Course> findAllCourseByUserId(Long id) {
         return courseRepository.findAllByStudentsId(id);
+    }
+
+    @Override
+    public List<Course> findAllCourseByTeacherId(Long id) {
+        return courseRepository.findAllByTeacherId(id);
     }
 
     //todo add java8
@@ -94,7 +97,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Page<Course> findPaginated(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
         return courseRepository.findAllByStatus(CourseStatus.NOT_STARTED, pageable);
     }
 

@@ -7,7 +7,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "course")
@@ -25,6 +28,13 @@ public class Course {
 
     private String courseName;
     private String description;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "student_course",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private Collection<User> students = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usr_id")
@@ -45,13 +55,5 @@ public class Course {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "student_courses",
-            joinColumns = {@JoinColumn(name = "course_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "student_id", referencedColumnName = "id")}
-    )
-    private Set<User> students;
 
 }

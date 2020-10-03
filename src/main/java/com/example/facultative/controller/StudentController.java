@@ -20,13 +20,13 @@ import java.util.List;
 
 @Slf4j
 @Controller
-public class UserController {
+public class StudentController {
 
     private final UserService userService;
     private final CourseService courseService;
 
     @Autowired
-    public UserController(UserService userService, CourseService courseService) {
+    public StudentController(UserService userService, CourseService courseService) {
         this.userService = userService;
         this.courseService = courseService;
     }
@@ -42,7 +42,7 @@ public class UserController {
     //TODO replace User to UserDto
     @GetMapping("/my-courses")
     public String getMyCourses(Model model, @AuthenticationPrincipal User user){
-        List<Course> allCourseByStudentId = courseService.findAllCourseByStudentId(user.getId());
+        List<Course> allCourseByStudentId = courseService.findAllCourseByUserId(user.getId());
         model.addAttribute("userCourses", allCourseByStudentId);
         return "my-courses";
     }

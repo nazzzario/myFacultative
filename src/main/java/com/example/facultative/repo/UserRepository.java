@@ -1,7 +1,7 @@
 package com.example.facultative.repo;
 
-import com.example.facultative.entity.Course;
 import com.example.facultative.entity.User;
+import com.example.facultative.entity.enums.CourseStatus;
 import com.example.facultative.entity.enums.UserRole;
 import com.example.facultative.entity.enums.UserStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,5 +19,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     List<User> findAllByUserStatus(UserStatus userStatus);
 
+    List<User> findAllByCoursesId(Long courseId);
+
+    List<User> findAllByCoursesStatusAndCoursesId(CourseStatus courseStatus, Long id);
 
 }

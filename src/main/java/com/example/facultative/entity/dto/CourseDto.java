@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Builder
 public class CourseDto {
     private Languages language;
     private String courseName;

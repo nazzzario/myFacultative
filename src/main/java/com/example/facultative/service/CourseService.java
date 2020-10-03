@@ -21,7 +21,11 @@ public interface CourseService {
 
     Page<Course> findPaginated(int pageNo, int pageSize);
 
-    List<Course> findAllCourseByStudentId(Long id);
+    List<Course> findAllCourseByUserId(Long id);
+
+    List<Course> findAllCourseByTeacherId(Long id);
 
     void addUserToCourse(String username, Long courseId) throws CourseNotFoundException;
+
+
 }

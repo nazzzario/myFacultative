@@ -27,6 +27,9 @@
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                     <a class="nav-link" href="/admin/courses">Courses List</a>
                 </li>
+                <li sec:authorize="hasAuthority('TEACHER')" class="nav-item">
+                    <a class="nav-link" href="/teacher/journal">Journal</a>
+                </li>
             </ul>
         </div>
         <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0">

@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Builder
 public class SubjectDto {
     private String name;
 }

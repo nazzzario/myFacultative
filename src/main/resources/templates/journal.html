@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <div th:include="fragments/bootstrap :: head"></div>
+</head>
+<header>
+    <div th:include="fragments/navbar :: navbar"></div>
+</header>
+<body class="text-center">
+<table>
+    <thead>
+    <tr>
+        <th> Name</th>
+        <th> Description</th>
+        <th> Status</th>
+        <th> Subject</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${teacherCourses.empty}">
+        <td colspan="2"> No Courses Available</td>
+    </tr>
+    <tr th:each="course : ${teacherCourses} ">
+        <td><span th:text="${course.courseName}"> </span></td>
+        <td><span th:text="${course.description}"> </span></td>
+        <td><span th:text="${course.status}"></span></td>
+        <td><span th:text="${course.subject.name}"></span></td>
+        <td><a th:href="@{/teacher/journal/{id}(id=${course.id})}" class="card-link">List of students</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:include="fragments/bootstrap :: script"></div>
+</body>
+<footer th:insert="fragments/footer :: footer"></footer>
+</html>

@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <div th:include="fragments/bootstrap :: head"></div>
+</head>
+<header>
+    <div th:include="fragments/navbar :: navbar"></div>
+</header>
+<body>
+<form th:action="@{/teacher/journal/}" th:object="${journalDto}" method="post" enctype="utf8">
+    <table>
+        <thead>
+        <tr>
+            <th> Email</th>
+            <th> Username</th>
+            <th> Name</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:if="${studentsList.empty}">
+            <td colspan="2"> No Users Available</td>
+        </tr>
+        <tr th:each="user : ${studentsList}">
+            <td ><span th:text="${user.email}"> </span></td>
+            <td><span th:text="${user.username}"> </span></td>
+            <td><span th:text="${user.id}"> </span>
+                <input type="hidden" name="userId" th:value="${user.id}"/>
+                <input type="hidden" name="courseId" th:value="${id}"/>
+            </td>
+            <td><span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></td>
+            <td>
+                <select name="grade">
+                    <option disabled>Chose grade</option>
+                    <option th:each="grade: ${grades}"
+                            th:value="${grade.name()}" th:text="${grade.name()}"></option>
+                </select>
+            </td>
+            <td >
+                <button type="submit">Save</button>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</form>
+<div th:include="fragments/bootstrap :: script"></div>
+</body>
+<footer th:insert="fragments/footer :: footer"></footer>
+</html>

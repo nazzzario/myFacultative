@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface UserService {
     void saveUser(UserDto userDto);
+
     void saveTeacher(UserDto userDto);
 
     List<User> findAllTeachers();
@@ -22,5 +23,5 @@ public interface UserService {
 
     User findUserByUsername(String name);
 
-
+    List<User> findAllByCourseId(Long courseId);
 }

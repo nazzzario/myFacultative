@@ -4,6 +4,7 @@ import com.example.facultative.entity.enums.Grade;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@ToString
+@Builder
 public class Journal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,14 +22,14 @@ public class Journal {
     @Enumerated(value = EnumType.STRING)
     private Grade grade;
 
-    @ManyToOne
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "student_id")
     private User user;
 
-    @ManyToOne
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id")
     private Course course;
-
-
 
 }
