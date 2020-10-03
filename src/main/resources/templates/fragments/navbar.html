@@ -36,9 +36,11 @@
         <form  sec:authorize="isAuthenticated()">
             <a type="button" th:href="@{/profile}">Profile</a>
         </form>
+        <div th:include="fragments/locale :: localeScript"></div>
         <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
             <input class="btn btn-outline-danger" type="submit" value="Sign Out">
         </form>
+        <div th:include="fragments/locale :: selectLanguage"></div>
         <form th:action="@{/logout}" method="post" sec:authorize="!isAuthenticated()">
             <input class="btn btn-outline-success" type="submit" value="Sign In">
         </form>

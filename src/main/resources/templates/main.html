@@ -9,7 +9,7 @@
     <div th:include="fragments/navbar :: navbar"></div>
 </header>
 <body>
-<h1 class="ml-4" th:inline="text" sec:authorize="isAuthenticated()">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<h1 class="ml-4" th:inline="text" sec:authorize="isAuthenticated()" th:text="#{title.greeting}"> </h1>
 <div th:include="fragments/task"></div>
 <div th:include="fragments/bootstrap :: script"></div>
 </body>
