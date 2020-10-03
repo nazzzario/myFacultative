@@ -1,24 +1,34 @@
 package com.example.facultative.service.impl;
 
 import com.example.facultative.entity.Course;
+import com.example.facultative.entity.User;
 import com.example.facultative.entity.dto.CourseDto;
 import com.example.facultative.entity.enums.CourseStatus;
+import com.example.facultative.entity.enums.UserRole;
+import com.example.facultative.exceptions.CourseNotFoundException;
 import com.example.facultative.repo.CourseRepository;
+import com.example.facultative.repo.UserRepository;
 import com.example.facultative.service.CourseService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @Service
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
+    private final UserRepository userRepository;
 
-    public CourseServiceImpl(CourseRepository courseRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, UserRepository userRepository) {
         this.courseRepository = courseRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -56,6 +66,30 @@ public class CourseServiceImpl implements CourseService {
         Course changeCourse = courseRepository.getOne(id);
         changeCourse.setStatus(courseStatus);
         courseRepository.save(changeCourse);
+    }
+
+
+    @Override
+    public List<Course> findAllCourseByStudentId(Long id) {
+        return courseRepository.findAllByStudentsId(id);
+    }
+
+    //todo add java8
+    @Override
+    public void addUserToCourse(String username, Long courseId) {
+        User user = userRepository.findByUsername(username);
+        Optional<Course> byId = courseRepository.findById(courseId);
+        if(byId.isPresent()) {
+            user.addCourse(byId.get());
+            userRepository.save(user);
+        }else {
+            try {
+                throw new CourseNotFoundException("Course with id: " + courseId + "not exists");
+            } catch (CourseNotFoundException e) {
+                log.info("Course with id: {} not exists", courseId);
+            }
+        }
+
     }
 
     @Override

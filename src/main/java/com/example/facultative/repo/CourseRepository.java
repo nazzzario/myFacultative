@@ -11,5 +11,10 @@ import java.util.List;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course,Long> {
+    List<Course> findAllByStudentsId(Long id);
+
     Page<Course> findAllByStatus(CourseStatus courseStatus, Pageable pageable);
+
+
+
 }

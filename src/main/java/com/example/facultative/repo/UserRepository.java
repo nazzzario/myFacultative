@@ -1,5 +1,6 @@
 package com.example.facultative.repo;
 
+import com.example.facultative.entity.Course;
 import com.example.facultative.entity.User;
 import com.example.facultative.entity.enums.UserRole;
 import com.example.facultative.entity.enums.UserStatus;
@@ -17,5 +18,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     List<User> findAllByRoleIn(List<UserRole> roles);
 
     List<User> findAllByUserStatus(UserStatus userStatus);
+
 
 }

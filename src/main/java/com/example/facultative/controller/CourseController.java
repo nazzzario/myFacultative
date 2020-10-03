@@ -48,4 +48,5 @@ public class CourseController {
         model.addAttribute("courseList", courseList);
         return "course_catalog";
     }
+
 }

@@ -1,5 +1,6 @@
 package com.example.facultative.service.impl;
 
+import com.example.facultative.entity.Course;
 import com.example.facultative.entity.User;
 import com.example.facultative.entity.dto.UserDto;
 import com.example.facultative.entity.enums.UserRole;
@@ -93,8 +94,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User findUserByUsername(String name) {
-        User byUsername = userRepository.findByUsername(name);
-        return byUsername;
+        return userRepository.findByUsername(name);
     }
+
 
 }

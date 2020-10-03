@@ -17,7 +17,7 @@
                     th:text="${course.teacher.firstName} + ' ' + ${course.teacher.lastName}"></h6>
                 <p class="card-text" th:text="${course.description}"></p>
                 <p class="card-text" th:text="${course.startDate} + ' ' + ${course.endDate}"></p>
-                <a href="#" class="card-link">Join course</a>
+                <a th:href="@{/join-course/{id}(id=${course.id})}" class="card-link">Join course</a>
             </div>
         </div>
     </div>

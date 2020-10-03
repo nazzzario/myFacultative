@@ -8,8 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 @Entity
 @Table(name = "usr")
@@ -17,8 +16,6 @@ import java.util.Collections;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Builder
 public class User implements UserDetails {
     @Id
@@ -44,6 +41,19 @@ public class User implements UserDetails {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "student_courses",
+            joinColumns = {@JoinColumn(name = "student_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "course_id", referencedColumnName = "id")}
+    )
+    private Set<Course> courses;
+
+
+    public void addCourse(Course course){
+        courses.add(course);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

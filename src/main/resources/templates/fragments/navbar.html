@@ -12,7 +12,7 @@
                     <a class="nav-link" href="/course_catalog">Catalog <span class="sr-only"></span></a>
                 </li>
                 <li sec:authorize="isAuthenticated() && hasAuthority('STUDENT')" class="nav-item">
-                    <a class="nav-link" href="#">My Courses</a>
+                    <a class="nav-link" href="/my-courses">My Courses</a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                     <a class="nav-link" href="/admin/registration">Register Teacher</a>
