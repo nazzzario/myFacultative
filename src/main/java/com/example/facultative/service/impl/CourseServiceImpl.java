@@ -6,6 +6,7 @@ import com.example.facultative.entity.enums.CourseStatus;
 import com.example.facultative.repo.CourseRepository;
 import com.example.facultative.service.CourseService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -58,8 +59,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Page<Course> findAllNotStartedCourse(Pageable pageable) {
+    public Page<Course> findPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo -1, pageSize);
         return courseRepository.findAllByStatus(CourseStatus.NOT_STARTED, pageable);
     }
+
 
 }

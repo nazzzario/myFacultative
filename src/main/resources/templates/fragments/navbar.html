@@ -1,4 +1,4 @@
-<header th:fragment="navbar"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+<header th:fragment="navbar" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
         xmlns:th="https://www.thymeleaf.org">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">myFacultative</a>
@@ -11,7 +11,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/course_catalog">Catalog <span class="sr-only"></span></a>
                 </li>
-                <li  sec:authorize="isAuthenticated() && hasAuthority('STUDENT')"  class="nav-item">
+                <li sec:authorize="isAuthenticated() && hasAuthority('STUDENT')" class="nav-item">
                     <a class="nav-link" href="#">My Courses</a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
@@ -33,7 +33,7 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <form  sec:authorize="isAuthenticated()">
+        <form sec:authorize="isAuthenticated()">
             <a type="button" th:href="@{/profile}">Profile</a>
         </form>
         <div th:include="fragments/locale :: localeScript"></div>

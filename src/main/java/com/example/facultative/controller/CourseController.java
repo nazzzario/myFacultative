@@ -10,8 +10,16 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
+@RequestMapping("/course_catalog")
 public class CourseController {
 
     private final CourseService courseService;
@@ -21,11 +29,23 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping("/course_catalog")
-    public String getAllNotStartedCourses(
-            Model model, @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
-        Page<Course> allNotStartedCourse = courseService.findAllNotStartedCourse(pageable);
-        model.addAttribute("courseCatalog", allNotStartedCourse);
+    @GetMapping()
+    public String viewHomePage(Model model) {
+        return findPaginated(1, model);
+    }
+
+    @GetMapping("{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo, Model model) {
+        int pageSize = 2;
+
+        Page<Course> page = courseService.findPaginated(pageNo, pageSize);
+        List<Course> courseList = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("courseList", courseList);
         return "course_catalog";
     }
 }

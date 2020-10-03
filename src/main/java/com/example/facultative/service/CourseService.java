@@ -4,7 +4,6 @@ import com.example.facultative.entity.Course;
 import com.example.facultative.entity.dto.CourseDto;
 import com.example.facultative.entity.enums.CourseStatus;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -19,5 +18,6 @@ public interface CourseService {
 
     void changeCourseStatus(Long id, CourseStatus courseStatus);
 
-    Page<Course> findAllNotStartedCourse(Pageable pageable);
+    Page<Course> findPaginated(int pageNo, int pageSize);
+
 }
