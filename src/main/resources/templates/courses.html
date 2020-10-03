@@ -1,8 +1,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <div th:include="fragments/bootstrap :: head"></div>
-
 </head>
+<header>
+    <div th:include="fragments/navbar :: navbar"></div>
+</header>
 <body class="text-center">
 <table>
     <thead>
@@ -42,5 +44,7 @@
     </tr>
     </tbody>
 </table>
+<div th:include="fragments/bootstrap :: script"></div>
 </body>
+<footer th:insert="fragments/footer :: footer"></footer>
 </html>

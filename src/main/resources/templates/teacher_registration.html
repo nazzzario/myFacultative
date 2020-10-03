@@ -1,8 +1,14 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <div th:include="fragments/bootstrap :: head"></div>
+</head>
+<header>
+    <div th:include="fragments/navbar :: navbar"></div>
+</header>
 <body>
-<h1>form</h1>
+<h1>Teacher registration</h1>
 <form th:action="@{/admin/registration}" th:object="${userDto}" method="post" enctype="utf8">
     <div>
         <label th:text="#{label.username}"></label>
@@ -30,5 +36,8 @@
 </form>
 
 <a th:href="@{/login.html}">login</a>
+<div th:include="fragments/bootstrap :: script"></div>
 </body>
+<footer th:insert="fragments/footer :: footer"></footer>
 </html>
+

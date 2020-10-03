@@ -1,6 +1,12 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <div th:include="fragments/bootstrap :: head"></div>
+</head>
+<header>
+    <div th:include="fragments/navbar :: navbar"></div>
+</header>
 <body>
 <h1>Update course</h1>
 <form th:action="@{/admin/course-update}" th:object="${courseDto}" method="post" enctype="utf8">
@@ -40,5 +46,7 @@
 
     <button type="submit">Update</button>
 </form>
+<div th:include="fragments/bootstrap :: script"></div>
 </body>
+<footer th:insert="fragments/footer :: footer"></footer>
 </html>
