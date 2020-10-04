@@ -31,7 +31,7 @@
         <select name="language">
             <option disabled>Languages</option>
             <option th:each="language: ${languages}"
-                    th:value="${language.name()}" th:text="${language.name()}"></option>
+                    th:value="${language}" th:text="${language.name()}"></option>
         </select>
     </label>
 

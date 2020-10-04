@@ -26,9 +26,8 @@
     </div>
 
     <select name="language">
-        <option disabled>Languages</option>
-        <option th:each="language: ${languages}"
-                th:value="${language.name()}" th:text="${language.name()}"></option>
+        <option th:each="language: ${T(com.example.facultative.entity.enums.Languages).values()}"
+                th:value="${language}" th:text="${language}"></option>
     </select>
 
     <select name="subject">

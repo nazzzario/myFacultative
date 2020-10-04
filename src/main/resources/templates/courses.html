@@ -31,7 +31,7 @@
         <td><span th:text="${course.status}"></span></td>
         <td><span th:text="${course.subject.name}"></span></td>
         <td><span th:text="${course.teacher.firstName} + ' ' + ${course.teacher.lastName}"></span></td>
-        <td><span th:text="${course.courseLanguage}"></span></td>
+        <td><span th:text="${course.language}"></span></td>
         <td><a th:href="@{course-update/{id}(id=${course.id})}">Edit</a></td>
         <td><a  th:href="@{course-delete/{id}(id=${course.id})}">Delete</a></td>
 

@@ -5,6 +5,7 @@ import com.example.facultative.entity.User;
 import com.example.facultative.entity.enums.CourseStatus;
 import com.example.facultative.exceptions.CourseNotFoundException;
 import com.example.facultative.repo.CourseRepository;
+import com.example.facultative.repo.JournalRepository;
 import com.example.facultative.repo.UserRepository;
 import com.example.facultative.service.CourseService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,15 +24,18 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
+    private final JournalRepository journalRepository;
 
-    public CourseServiceImpl(CourseRepository courseRepository, UserRepository userRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, UserRepository userRepository, JournalRepository journalRepository) {
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
+        this.journalRepository = journalRepository;
     }
 
     @Override
     public void saveCourse(Course course) {
         course.setStatus(CourseStatus.NOT_STARTED);
+        course.setLanguage(course.getLanguage());
         courseRepository.save(course);
     }
 
@@ -40,8 +45,10 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findAll();
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
+        journalRepository.deleteAllByCourse_Id(id);
         courseRepository.deleteById(id);
     }
 

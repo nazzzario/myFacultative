@@ -42,7 +42,7 @@ public class User implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "student_course",
             joinColumns = {@JoinColumn(name = "student_id", referencedColumnName = "id")},

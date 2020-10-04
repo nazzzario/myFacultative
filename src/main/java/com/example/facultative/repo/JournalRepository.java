@@ -8,5 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface JournalRepository extends JpaRepository<Journal,Long> {
     Journal findByCourseAndUser(Course course, User user);
 
+    void deleteAllByCourse_Id(Long id);
 
 }

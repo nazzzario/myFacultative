@@ -2,6 +2,7 @@ package com.example.facultative.entity;
 
 import com.example.facultative.entity.enums.Grade;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -23,12 +24,12 @@ public class Journal {
     private Grade grade;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "student_id")
     private User user;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
 

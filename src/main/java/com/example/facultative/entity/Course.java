@@ -30,7 +30,7 @@ public class Course {
     @NotNull
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "student_course",
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
@@ -51,7 +51,7 @@ public class Course {
     private CourseStatus status;
 
     @Enumerated(EnumType.STRING)
-    private Languages courseLanguage;
+    private Languages language;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 

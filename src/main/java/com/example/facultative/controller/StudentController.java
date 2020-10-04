@@ -2,8 +2,6 @@ package com.example.facultative.controller;
 
 import com.example.facultative.entity.Course;
 import com.example.facultative.entity.User;
-import com.example.facultative.entity.dto.UserDto;
-import com.example.facultative.entity.enums.CourseStatus;
 import com.example.facultative.exceptions.CourseNotFoundException;
 import com.example.facultative.service.CourseService;
 import com.example.facultative.service.UserService;
@@ -39,7 +37,6 @@ public class StudentController {
         return "profile";
     }
 
-    //TODO replace User to UserDto
     @GetMapping("/my-courses")
     public String getMyCourses(Model model, @AuthenticationPrincipal User user){
         List<Course> allCourseByStudentId = courseService.findAllCourseByUserId(user.getId());
