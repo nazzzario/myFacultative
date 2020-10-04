@@ -9,8 +9,10 @@
 </header>
 <body>
 <h1>Update course</h1>
-<form th:action="@{/admin/course-update}" th:object="${courseDto}" method="post" enctype="utf8">
+<form th:action="@{/admin/course-update}" th:object="${course}" method="post" enctype="utf8">
     <div>
+
+        <input hidden type="number" th:field="*{id}" id="id" placeholder="ID">
         <label>Course name:</label>
         <input th:field="*{courseName}"/>
 
@@ -25,24 +27,30 @@
         <input type="date" th:field="*{endDate}"/>
     </div>
 
-    <select name="language">
-        <option disabled>Languages</option>
-        <option th:each="language: ${languages}"
-                th:value="${language.name()}" th:text="${language.name()}"></option>
-    </select>
+    <label>
+        <select name="language">
+            <option disabled>Languages</option>
+            <option th:each="language: ${languages}"
+                    th:value="${language.name()}" th:text="${language.name()}"></option>
+        </select>
+    </label>
 
 
-    <select name="subject">
-        <option disabled>Subjects</option>
-        <option th:each="subject: ${subjects}"
-                th:value="${subject.id}" th:text="${subject.name}"></option>
-    </select>
+    <label>
+        <select name="subject">
+            <option disabled>Subjects</option>
+            <option th:each="subject: ${subjects}"
+                    th:value="${subject.id}" th:text="${subject.name}"></option>
+        </select>
+    </label>
 
-    <select name="teacher">
-        <option disabled>Teachers</option>
-        <option th:each="teacher: ${teachers}"
-                th:value="${teacher.id}" th:text="${teacher.firstName} + ' ' + ${teacher.lastName}"></option>
-    </select>
+    <label>
+        <select name="teacher">
+            <option disabled>Teachers</option>
+            <option th:each="teacher: ${teachers}"
+                    th:value="${teacher.id}" th:text="${teacher.firstName} + ' ' + ${teacher.lastName}"></option>
+        </select>
+    </label>
 
     <button type="submit">Update</button>
 </form>

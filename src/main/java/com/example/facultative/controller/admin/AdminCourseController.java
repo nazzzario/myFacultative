@@ -3,7 +3,6 @@ package com.example.facultative.controller.admin;
 import com.example.facultative.entity.Course;
 import com.example.facultative.entity.Subject;
 import com.example.facultative.entity.User;
-import com.example.facultative.entity.dto.CourseDto;
 import com.example.facultative.entity.enums.CourseStatus;
 import com.example.facultative.entity.enums.Languages;
 import com.example.facultative.service.CourseService;
@@ -38,8 +37,8 @@ public class AdminCourseController {
     }
 
     @GetMapping("/course")
-    public String course(@ModelAttribute("courseDto") CourseDto courseDto, Model model){
-        model.addAttribute("courseDto", courseDto);
+    public String course(@ModelAttribute("courseDto") Course course, Model model){
+        model.addAttribute("course", course);
         return "create_course";
     }
 
@@ -62,9 +61,9 @@ public class AdminCourseController {
     }
 
     @PostMapping("/course")
-    public String createCourse(CourseDto courseDto){
-        courseService.saveCourse(courseDto);
-        log.info("Course {} successfully created ", courseDto.getCourseName());
+    public String createCourse(Course course){
+        courseService.saveCourse(course);
+        log.info("Course {} successfully created ", course.getCourseName());
         return "create_course";
     }
 
@@ -83,15 +82,15 @@ public class AdminCourseController {
 
     @GetMapping("/course-update/{id}")
     public String updateCourseForm(@PathVariable("id")Long id, Model model){
-        Course courseById = courseService.findCourseById(id);
-        model.addAttribute("courseDto", courseById);
+        Course course = courseService.findCourseById(id);
+        model.addAttribute("course", course);
         return "course_update";
     }
 
     //todo fix update course
     @PostMapping("/course-update")
-    public String updateCourse(CourseDto courseDto){
-        courseService.saveCourse(courseDto);
+    public String updateCourse(Course course){
+        courseService.saveCourse(course);
         return "redirect:/admin/courses";
     }
 

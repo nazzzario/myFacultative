@@ -1,5 +1,5 @@
 <header th:fragment="navbar" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-        xmlns:th="https://www.thymeleaf.org">
+        xmlns:th="https://www.thymeleaf.org" >
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">myFacultative</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -32,18 +32,17 @@
                 </li>
             </ul>
         </div>
-        <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0">
+        <form sec:authorize="isAuthenticated()" class="form-inline mr-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <form sec:authorize="isAuthenticated()">
-            <a type="button" th:href="@{/profile}">Profile</a>
-        </form>
+
+        <div class="mr-2" th:include="fragments/locale :: selectLanguage"></div>
+
+        <div class="m-2" sec:authorize="isAuthenticated()" th:include="/fragments/dropdown-profile:: profile"></div>
+
         <div th:include="fragments/locale :: localeScript"></div>
-        <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
-            <input class="btn btn-outline-danger" type="submit" value="Sign Out">
-        </form>
-        <div th:include="fragments/locale :: selectLanguage"></div>
+
         <form th:action="@{/logout}" method="post" sec:authorize="!isAuthenticated()">
             <input class="btn btn-outline-success" type="submit" value="Sign In">
         </form>

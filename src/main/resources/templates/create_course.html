@@ -9,7 +9,7 @@
 </header>
 <body>
 <h1>Create new course</h1>
-<form th:action="@{/admin/course}" th:object="${courseDto}" method="post" enctype="utf8">
+<form th:action="@{/admin/course}" th:object="${course}" method="post" enctype="utf8">
     <div>
         <label>Course name:</label>
         <input th:field="*{courseName}"/>
@@ -30,7 +30,6 @@
         <option th:each="language: ${languages}"
                 th:value="${language.name()}" th:text="${language.name()}"></option>
     </select>
-
 
     <select name="subject">
         <option disabled>Subjects</option>
