@@ -1,8 +1,8 @@
 package com.example.facultative.controller;
 
 import com.example.facultative.entity.Course;
+import com.example.facultative.entity.Journal;
 import com.example.facultative.entity.User;
-import com.example.facultative.entity.dto.JournalDto;
 import com.example.facultative.entity.enums.Grade;
 import com.example.facultative.service.CourseService;
 import com.example.facultative.service.JournalService;
@@ -44,9 +44,9 @@ public class TeacherController {
     }
 
     @GetMapping("/journal/{id}")
-    public String studentsInTheCourse(@PathVariable("id") Long courseId, Model model, JournalDto journalDto) {
+    public String studentsInTheCourse(@PathVariable("id") Long courseId, Model model, Journal journal) {
         List<User> allByCourseId = userService.findAllByCourseId(courseId);
-        model.addAttribute("journalDto", journalDto);
+        model.addAttribute("journalDto", journal);
         model.addAttribute("studentsList", allByCourseId);
         return "list-of-students";
     }
@@ -55,12 +55,13 @@ public class TeacherController {
     @PostMapping("/journal/")
     public String saveToJournal(@RequestParam("userId")Long userId,
                                 @RequestParam("courseId") Long courseId,
-                                JournalDto journalDto){
+                                Journal journal){
         User userById = userService.findUserById(userId);
         Course courseById = courseService.findCourseById(courseId);
-        journalDto.setUser(userById);
-        journalDto.setCourse(courseById);
-        journalService.saveJournal(journalDto);
+        journalService.saveOrUpdateJournals(courseById, userById);
+        journal.setUser(userById);
+        journal.setCourse(courseById);
+        journalService.saveJournal(journal);
         return "main";
     }
 
