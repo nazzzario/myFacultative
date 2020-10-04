@@ -1,34 +1,48 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" lang="en">
-<body>
-<h1>form</h1>
+<head>
+    <div th:include="fragments/bootstrap :: head"></div>
+</head>
+<body class="text-center">
+<h1 class="h3 mb-3 font-weight-normal">Registration </h1>
 <form th:action="@{/registration}" th:object="${userDto}" method="post" enctype="utf8">
     <div>
-        <label>username</label>
+        <label>Username</label>
         <input th:field="*{username}"/>
-
-        <label>first</label>
+        <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
+        <label>First name</label>
         <input th:field="*{firstName}"/>
-
-        <label>last</label>
+        <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></td>
+        <label>Last name</label>
         <input th:field="*{lastName}"/>
+        <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></td>
+
     </div>
     <div>
         <label>email</label>
         <input type="email" th:field="*{email}"/>
+        <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
+
     </div>
     <div>
         <label>password</label>
         <input type="password" th:field="*{password}"/>
+        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
+
     </div>
     <div>
         <label>confirm</label>
         <input type="password" th:field="*{rePassword}"/>
+        <td th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}"></td>
+
     </div>
-    <button type="submit">submit</button>
+    <button  class="btn btn-lg btn-primary btn-block" type="submit">submit</button>
 </form>
+<div th:include="fragments/locale :: selectLanguage"></div>
+<div th:include="fragments/locale :: localeScript"></div>
 
 <a th:href="@{/login.html}">login</a>
 </body>
 </html>
+<!--todo add bootstrap styles-->

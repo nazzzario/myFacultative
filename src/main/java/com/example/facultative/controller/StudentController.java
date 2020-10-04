@@ -1,9 +1,11 @@
 package com.example.facultative.controller;
 
 import com.example.facultative.entity.Course;
+import com.example.facultative.entity.Journal;
 import com.example.facultative.entity.User;
 import com.example.facultative.exceptions.CourseNotFoundException;
 import com.example.facultative.service.CourseService;
+import com.example.facultative.service.JournalService;
 import com.example.facultative.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,13 @@ public class StudentController {
 
     private final UserService userService;
     private final CourseService courseService;
+    private final JournalService journalService;
 
     @Autowired
-    public StudentController(UserService userService, CourseService courseService) {
+    public StudentController(UserService userService, CourseService courseService, JournalService journalService) {
         this.userService = userService;
         this.courseService = courseService;
+        this.journalService = journalService;
     }
 
     @GetMapping("/profile")
@@ -52,6 +56,13 @@ public class StudentController {
             log.error("Cannot find course with id {}" , id);
         }
         return "redirect:/course_catalog";
+    }
+
+    @GetMapping("/my-grades")
+    public String getStudentGrade(@AuthenticationPrincipal User user, Model model){
+        List<Journal> allUserGrades = journalService.findAllUserGrades(user.getId());
+        model.addAttribute("usersGrades", allUserGrades);
+        return "my-grades";
     }
 
 }

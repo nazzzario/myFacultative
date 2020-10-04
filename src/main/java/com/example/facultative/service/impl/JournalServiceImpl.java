@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class JournalServiceImpl implements JournalService {
@@ -32,12 +33,16 @@ public class JournalServiceImpl implements JournalService {
         if(byCourseAndUser != null){
             id = byCourseAndUser.getId();
         }
-
     }
 
     @Override
     public void deleteJournal(Long id) {
         journalRepository.deleteAllByCourse_Id(id);
+    }
+
+    @Override
+    public List<Journal> findAllUserGrades(Long id) {
+        return journalRepository.findAllByUser_Id(id);
     }
 
 }

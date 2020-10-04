@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <div th:include="fragments/bootstrap :: head"></div>
+</head>
+<header>
+    <div th:include="fragments/navbar :: navbar"></div>
+</header>
+<body class="text-center">
+<table>
+    <thead>
+    <tr>
+        <th> Course</th>
+        <th> Grade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${usersGrades.empty}">
+        <td colspan="2"> No Grades Available</td>
+    </tr>
+    <tr th:each="grade : ${usersGrades} ">
+        <td><span th:text="${grade.course.courseName}"> </span></td>
+        <td><span th:text="${grade.grade}"> </span></td>
+    </tr>
+    </tbody>
+</table>
+<div th:include="fragments/bootstrap :: script"></div>
+</body>
+<footer th:insert="fragments/footer :: footer"></footer>
+</html>
