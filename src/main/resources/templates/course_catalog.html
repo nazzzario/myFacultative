@@ -12,6 +12,9 @@
 <body>
 <div>
     <a th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=courseName&sortOrder=' + ${reverseSortOrder}}">Course name</a>
+    <a th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=startDate&sortOrder=' + ${reverseSortOrder}}">Starting soon</a>
+    <a th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=students&sortOrder=' + ${reverseSortOrder}}">Number of students</a>
+
 </div>
 <div class="card-columns">
     <div th:each="course: ${courseList}">
@@ -22,10 +25,14 @@
                     th:text="${course.teacher.firstName} + ' ' + ${course.teacher.lastName}"></h6>
                 <p class="card-text" th:text="${course.description}"></p>
                 <p class="card-text" th:text="${course.startDate} + ' ' + ${course.endDate}"></p>
+                <p class="card-text" th:text="${course.students.size()}"></p>
                 <a th:if="${course.status.NOT_STARTED}" th:href="@{/join-course/{id}(id=${course.id})}" class="card-link">Join course</a>
             </div>
         </div>
     </div>
+</div>
+<div  th:each="subject: ${subjects}">
+    <a th:text="${subject.name}" th:href="${subject.id}"></a>
 </div>
 <div th:include="fragments/pagination :: pagination"></div>
 <div th:include="fragments/bootstrap :: script"></div>

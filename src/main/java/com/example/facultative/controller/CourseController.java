@@ -1,17 +1,16 @@
 package com.example.facultative.controller;
 
 import com.example.facultative.entity.Course;
+import com.example.facultative.entity.Subject;
 import com.example.facultative.service.CourseService;
+import com.example.facultative.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,11 +21,13 @@ import java.util.Objects;
 public class CourseController {
 
     private final CourseService courseService;
+    private final SubjectService subjectService;
     private final Environment environment;
 
     @Autowired
-    public CourseController(CourseService courseService, Environment environment) {
+    public CourseController(CourseService courseService, SubjectService subjectService, Environment environment) {
         this.courseService = courseService;
+        this.subjectService = subjectService;
         this.environment = environment;
     }
 
@@ -49,6 +50,7 @@ public class CourseController {
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
 
+
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortOrder", sortOrder);
         model.addAttribute("reverseSortOrder", sortOrder.equals("asc") ? "desc" : "asc");
@@ -56,5 +58,12 @@ public class CourseController {
         model.addAttribute("courseList", courseList);
         return "course_catalog";
     }
+
+    @ModelAttribute("subjects")
+    public void getSubjects(Model model){
+        List<Subject> allSubjects = subjectService.getAllSubjects();
+        model.addAttribute("subjects",allSubjects);
+    }
+
 
 }

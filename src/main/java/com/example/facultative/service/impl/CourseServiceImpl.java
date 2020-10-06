@@ -46,6 +46,16 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findAll();
     }
 
+    @Override
+    public List<Course> findAllBySubjectId(Long subjectId) {
+        return courseRepository.findAllBySubjectId(subjectId);
+    }
+
+    @Override
+    public int numberOfStudentsInCourse(String courseName) {
+        return courseRepository.countStudentsByCourseName(courseName);
+    }
+
     @Transactional
     @Override
     public void deleteById(Long id) {

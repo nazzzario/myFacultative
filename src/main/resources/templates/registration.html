@@ -5,7 +5,7 @@
     <div th:include="fragments/bootstrap :: head"></div>
 </head>
 <body class="text-center">
-<h1 class="h3 mb-3 font-weight-normal">Registration </h1>
+<h1 class="h3 mb-3 font-weight-normal" th:text="#{user.registration}"></h1>
 <form th:action="@{/registration}" th:object="${userDto}" method="post" enctype="utf8">
     <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
         <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>

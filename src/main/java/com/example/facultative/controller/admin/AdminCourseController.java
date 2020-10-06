@@ -66,6 +66,10 @@ public class AdminCourseController {
 
     @PostMapping("/course")
     public String createCourse(@Valid Course course, BindingResult bindingResult){
+        if(course.getStartDate().isAfter(course.getEndDate())){
+            bindingResult.reject("course.date.error");
+        }
+
         if(bindingResult.hasErrors()){
             return "create_course";
         }

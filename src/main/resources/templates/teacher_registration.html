@@ -8,34 +8,35 @@
     <div th:include="fragments/navbar :: navbar"></div>
 </header>
 <body>
-<h1>Teacher registration</h1>
+<h1 th:text="#{adm.teacher.registration}"></h1>
 <form th:action="@{/admin/registration}" th:object="${userDto}" method="post" enctype="utf8">
+    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+    </div>
     <div>
         <label th:text="#{label.username}"></label>
         <input th:field="*{username}"/>
 
-        <label>first</label>
+        <label>[[#{usr.firstname}]]</label>
         <input th:field="*{firstName}"/>
 
-        <label>last</label>
+        <label>[[#{usr.lastname}]]</label>
         <input th:field="*{lastName}"/>
     </div>
     <div>
-        <label>email</label>
+        <label>[[#{usr.email}]]</label>
         <input type="email" th:field="*{email}"/>
     </div>
     <div>
-        <label>password</label>
+        <label>[[#{usr.password}]]</label>
         <input type="password" th:field="*{password}"/>
     </div>
     <div>
-        <label>confirm</label>
+        <label>[[#{usr.confirm}]]</label>
         <input type="password" th:field="*{rePassword}"/>
     </div>
-    <button type="submit" >submit</button>
+    <button type="submit" >[[#{btn.submit}]]</button>
 </form>
-
-<a th:href="@{/login.html}">login</a>
 <div th:include="fragments/bootstrap :: script"></div>
 </body>
 <footer th:insert="fragments/footer :: footer"></footer>

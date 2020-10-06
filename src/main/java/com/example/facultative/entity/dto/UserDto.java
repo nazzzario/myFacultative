@@ -26,7 +26,6 @@ public class UserDto {
     private String lastName;
 
     @NotBlank(message = "{password.error}")
-
     private String password;
 
     @NotBlank(message = "{repassword.error}")

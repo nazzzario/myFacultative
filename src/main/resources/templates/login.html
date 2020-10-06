@@ -1,23 +1,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <div th:include="fragments/bootstrap :: head"></div>
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
 
 </head>
 <body class="text-center">
-<form class="form-signin" th:action="@{/login}" method="post">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <div ><label> Username: <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{label.login}"></button>
-    <a href="/registration">Create new account</a>
-    <div th:include="fragments/locale :: selectLanguage"></div>
-    <div th:include="fragments/locale :: localeScript"></div>
-
+<form class="form-group" th:action="@{/login}" method="post">
+    <div class="alert alert-danger">
+        <label th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION']}"></label>
+    </div>
+    <div class="custom-select-sm">
+        <select id="locales">
+            <option value=""></option>
+            <option value="en" th:text="#{lang.en}"></option>
+            <option value="ua" th:text="#{lang.ua}"></option>
+        </select>
+    </div>
+    <div >
+        <h1 class="h3 mb-3 font-weight-normal" th:text="#{login.signin}"></h1>
+        <div >
+            <input class="form-control-sm" type="text" name="username" th:placeholder="#{user.username}"/>
+        </div>
+        <div class="form-control-plaintext">
+            <input class="form-control-sm col-xs-2" type="password" name="password" th:placeholder="#{user.password}"/>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit" th:text="#{label.login}"></button>
+    <div><a href="/registration">[[#{create.account}]]</a></div>
 </form>
 
-<div class="dialog-row">
-    <label th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-center redText">Mot de passe inconnu</label>
-</div>
+<div th:include="fragments/bootstrap :: script"></div>
 </body>
+<div th:include="fragments/locale :: localeScript"></div>
 </html>

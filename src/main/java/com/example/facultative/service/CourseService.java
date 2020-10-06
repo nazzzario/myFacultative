@@ -12,6 +12,10 @@ public interface CourseService {
 
     List<Course> findAll();
 
+    List<Course> findAllBySubjectId(Long subjectId);
+
+    int numberOfStudentsInCourse(String courseName);
+
     void deleteById(Long id);
 
     Course findCourseById(Long id);
