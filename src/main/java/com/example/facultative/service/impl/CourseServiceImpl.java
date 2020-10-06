@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -94,8 +95,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Page<Course> findPaginated(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+    public Page<Course> findPaginated(int pageNo, int pageSize, String sortOrder, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortOrder).ascending() :
+                Sort.by(sortOrder).descending();
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         return courseRepository.findAllByStatus(CourseStatus.NOT_STARTED, pageable);
     }
 

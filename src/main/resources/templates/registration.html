@@ -30,6 +30,7 @@
         <input type="password" th:field="*{password}"/>
         <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
 
+
     </div>
     <div>
         <label>confirm</label>
@@ -37,7 +38,7 @@
         <td th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}"></td>
 
     </div>
-    <button  class="btn btn-lg btn-primary btn-block" type="submit">submit</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">submit</button>
 </form>
 <div th:include="fragments/locale :: selectLanguage"></div>
 <div th:include="fragments/locale :: localeScript"></div>
@@ -45,4 +46,3 @@
 <a th:href="@{/login.html}">login</a>
 </body>
 </html>
-<!--todo add bootstrap styles-->

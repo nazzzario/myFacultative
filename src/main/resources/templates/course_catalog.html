@@ -8,6 +8,9 @@
     <div th:include="fragments/navbar :: navbar"></div>
 </header>
 <body>
+<div>
+    <a th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=courseName&sortOrder=' + ${reverseSortOrder}}">Course name</a>
+</div>
 <div class="card-columns">
     <div th:each="course: ${courseList}">
         <div class="card">

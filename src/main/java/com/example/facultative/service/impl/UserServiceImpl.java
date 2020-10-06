@@ -1,6 +1,5 @@
 package com.example.facultative.service.impl;
 
-import com.example.facultative.entity.Course;
 import com.example.facultative.entity.User;
 import com.example.facultative.entity.dto.UserDto;
 import com.example.facultative.entity.enums.UserRole;
@@ -8,7 +7,6 @@ import com.example.facultative.entity.enums.UserStatus;
 import com.example.facultative.repo.UserRepository;
 import com.example.facultative.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 

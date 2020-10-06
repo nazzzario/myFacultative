@@ -5,17 +5,17 @@
         </div>
         <div class = "col-sm-1">
 					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-						<a th:if="${currentPage != i}" th:href="@{'/course_catalog/' + ${i}}">[[${i}]]</a>
+						<a th:if="${currentPage != i}" th:href="@{'/course_catalog/' + ${i}+ '?sortField=' + ${sortField} + '&sortOrder=' + ${sortOrder}}">[[${i}]]</a>
 						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
 					</span>
         </div>
         <div class = "col-sm-1">
-            <a th:if="${currentPage < totalPages}" th:href="@{'/course_catalog/' + ${currentPage + 1}}">Next</a>
+            <a th:if="${currentPage < totalPages}" th:href="@{'/course_catalog/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortOrder=' + ${sortOrder}}">Next</a>
             <span th:unless="${currentPage < totalPages}">Next</span>
         </div>
 
         <div class="col-sm-1">
-            <a th:if="${currentPage < totalPages}" th:href="@{'/course_catalog/' + ${totalPages}}">Last</a>
+            <a th:if="${currentPage < totalPages}" th:href="@{'/course_catalog/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortOrder=' + ${sortOrder}}">Last</a>
             <span th:unless="${currentPage < totalPages}">Last</span>
         </div>
     </div>

@@ -18,7 +18,7 @@ public interface CourseService {
 
     void changeCourseStatus(Long id, CourseStatus courseStatus);
 
-    Page<Course> findPaginated(int pageNo, int pageSize);
+    Page<Course> findPaginated(int pageNo, int pageSize, String sortOrder, String sortDir);
 
     List<Course> findAllCourseByUserId(Long id);
 

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,19 +32,26 @@ public class CourseController {
 
     @GetMapping()
     public String viewHomePage(Model model) {
-        return findPaginated(1, model);
+        return findPaginated(1, "courseName","asc", model);
     }
 
     @GetMapping("{pageNo}")
-    public String findPaginated(@PathVariable (value = "pageNo") int pageNo, Model model) {
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortOrder") String sortOrder,
+                                Model model) {
         int pageSize = Integer.parseInt(Objects.requireNonNull(this.environment.getProperty("page.size")));
 
-        Page<Course> page = courseService.findPaginated(pageNo, pageSize);
+        Page<Course> page = courseService.findPaginated(pageNo, pageSize, sortField, sortOrder);
         List<Course> courseList = page.getContent();
 
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortOrder", sortOrder);
+        model.addAttribute("reverseSortOrder", sortOrder.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("courseList", courseList);
         return "course_catalog";
