@@ -21,6 +21,8 @@ public interface UserService {
 
     User findUserById(Long id);
 
+    User findUserByEmail(String email);
+
     User findUserByUsername(String name);
 
     List<User> findAllByCourseId(Long courseId);

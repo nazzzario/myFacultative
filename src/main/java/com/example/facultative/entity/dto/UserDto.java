@@ -12,22 +12,23 @@ import javax.validation.constraints.NotBlank;
 @EqualsAndHashCode
 public class UserDto {
 
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "{username.error}")
     private String username;
 
-    @Email(message = "Enter valid e-mail" )
-    @NotBlank(message = "Email cannot be empty")
+    @Email(message = "{email.valid.error}" )
+    @NotBlank(message = "{email.error}")
     private String email;
 
-    @NotBlank(message = "User first name is required")
+    @NotBlank(message = "{firstname.error}")
     private String firstName;
 
-    @NotBlank(message = "User last name is required")
+    @NotBlank(message = "{lastname.error}")
     private String lastName;
 
-    @NotBlank(message = "Password cannot be empty")
+    @NotBlank(message = "{password.error}")
+
     private String password;
 
-    @NotBlank(message = "Password confirmation cannot be empty")
+    @NotBlank(message = "{repassword.error}")
     private String rePassword;
 }

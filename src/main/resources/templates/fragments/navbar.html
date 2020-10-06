@@ -1,7 +1,7 @@
 <header th:fragment="navbar" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
         xmlns:th="https://www.thymeleaf.org" >
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">myFacultative</a>
+        <a class="navbar-brand" href="/" th:text="#{nav.brand}"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -9,33 +9,30 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/course_catalog">Catalog <span class="sr-only"></span></a>
+                    <a class="nav-link" href="/course_catalog" th:text="#{nav.catalog}"><span class="sr-only"></span></a>
                 </li>
                 <li sec:authorize="isAuthenticated() && hasAuthority('STUDENT')" class="nav-item">
-                    <a class="nav-link" href="/my-courses">My Courses</a>
+                    <a class="nav-link" href="/my-courses" th:text="#{nav.courses}"></a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-                    <a class="nav-link" href="/admin/registration">Register Teacher</a>
+                    <a class="nav-link" href="/admin/registration" th:text="#{nav.adm.reg}"></a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-                    <a class="nav-link" href="/admin/course">Create course</a>
+                    <a class="nav-link" href="/admin/course" th:text="#{nav.adm.crt}"></a>
                 </li>
 
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-                    <a class="nav-link" href="/admin/users">Users List</a>
+                    <a class="nav-link" href="/admin/users" th:text="#{nav.adm.usr}"></a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-                    <a class="nav-link" href="/admin/courses">Courses List</a>
+                    <a class="nav-link" href="/admin/courses" th:text="#{nav.adm.crs}"></a>
                 </li>
                 <li sec:authorize="hasAuthority('TEACHER')" class="nav-item">
-                    <a class="nav-link" href="/teacher/journal">Journal</a>
+                    <a class="nav-link" href="/teacher/journal" th:text="#{nav.tch.journal}"></a>
                 </li>
             </ul>
         </div>
-        <form sec:authorize="isAuthenticated()" class="form-inline mr-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+
 
         <div class="mr-2" th:include="fragments/locale :: selectLanguage"></div>
 

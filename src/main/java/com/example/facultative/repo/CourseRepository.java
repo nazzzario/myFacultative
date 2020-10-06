@@ -17,5 +17,7 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 
     List<Course> findAllByTeacherId(Long teacherId);
 
+    List<Course> findAllBySubjectId(Long subjectId);
+
 
 }

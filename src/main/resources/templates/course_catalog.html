@@ -3,6 +3,8 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:include="fragments/bootstrap :: head"></div>
+    <link rel="stylesheet" href="../static/style.css">
+
 </head>
 <header>
     <div th:include="fragments/navbar :: navbar"></div>
@@ -20,7 +22,7 @@
                     th:text="${course.teacher.firstName} + ' ' + ${course.teacher.lastName}"></h6>
                 <p class="card-text" th:text="${course.description}"></p>
                 <p class="card-text" th:text="${course.startDate} + ' ' + ${course.endDate}"></p>
-                <a th:href="@{/join-course/{id}(id=${course.id})}" class="card-link">Join course</a>
+                <a th:if="${course.status.NOT_STARTED}" th:href="@{/join-course/{id}(id=${course.id})}" class="card-link">Join course</a>
             </div>
         </div>
     </div>
@@ -29,4 +31,5 @@
 <div th:include="fragments/bootstrap :: script"></div>
 </body>
 <footer th:insert="fragments/footer :: footer"></footer>
+
 </html>

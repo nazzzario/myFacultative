@@ -7,35 +7,31 @@
 <body class="text-center">
 <h1 class="h3 mb-3 font-weight-normal">Registration </h1>
 <form th:action="@{/registration}" th:object="${userDto}" method="post" enctype="utf8">
+    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+    </div>
     <div>
         <label>Username</label>
         <input th:field="*{username}"/>
-        <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
         <label>First name</label>
         <input th:field="*{firstName}"/>
-        <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></td>
+
         <label>Last name</label>
         <input th:field="*{lastName}"/>
-        <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></td>
 
     </div>
     <div>
         <label>email</label>
         <input type="email" th:field="*{email}"/>
-        <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
 
     </div>
     <div>
         <label>password</label>
         <input type="password" th:field="*{password}"/>
-        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
-
-
     </div>
     <div>
         <label>confirm</label>
         <input type="password" th:field="*{rePassword}"/>
-        <td th:if="${#fields.hasErrors('rePassword')}" th:errors="*{rePassword}"></td>
 
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">submit</button>

@@ -13,8 +13,9 @@
 </script>
 </div>
 
-<div  th:fragment="selectLanguage">
-    <select id="locales">
+<div th:fragment="selectLanguage">
+    <select class="form-control" id="locales">
+        <option value=""></option>
         <option value="en" th:text="#{lang.en}"></option>
         <option value="ua" th:text="#{lang.ua}"></option>
     </select>

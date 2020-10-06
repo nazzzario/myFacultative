@@ -1,15 +1,15 @@
 <form sec:authorize="isAuthenticated()" th:fragment="profile">
     <div class="dropdown show">
-        <a class="btn btn-secondary dropdown-toggle" th:href="@{/profile}" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Profile
+        <a class="btn btn-secondary dropdown-toggle" th:href="@{/profile}" role="button"
+           id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{prof}">
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a  class="dropdown-item" th:href="@{/profile}">Profile</a>
-            <a sec:authorize="hasAuthority('STUDENT')" class="dropdown-item"  href="/my-courses">My Courses</a>
-            <a sec:authorize="hasAuthority('STUDENT')" class="dropdown-item" href="/my-grades">My Grades</a>
+            <a  class="dropdown-item" th:href="@{/profile}" th:text="#{prof}"></a>
+            <a sec:authorize="hasAuthority('STUDENT')" class="dropdown-item"  href="/my-courses" th:text="#{nav.courses}"></a>
+            <a sec:authorize="hasAuthority('STUDENT')" class="dropdown-item" href="/my-grades" th:text="#{prof.grades}"></a>
             <div class="dropdown-divider"></div>
             <form th:action="@{/logout}" method="post">
-                    <input class="dropdown-item" type="submit" value="Sign Out">
+                    <input class="dropdown-item" type="submit" th:value="#{prof.signout}">
                 </form>
         </div>
     </div>
