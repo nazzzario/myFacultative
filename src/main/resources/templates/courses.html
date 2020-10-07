@@ -6,22 +6,22 @@
     <div th:include="fragments/navbar :: navbar"></div>
 </header>
 <body class="text-center">
-<table>
+<table class="table table-hover">
     <thead>
     <tr>
-        <th> Name</th>
-        <th> Description</th>
-        <th> Start date</th>
-        <th> End date</th>
-        <th> Status</th>
-        <th> Subject</th>
-        <th> Teacher</th>
-        <th> Language</th>
+        <th scope="col"> [[#{course.name}]]</th>
+        <th scope="col"> [[#{course.description}]]</th>
+        <th scope="col"> [[#{course.start.date}]]</th>
+        <th scope="col"> [[#{course.end.date}]]</th>
+        <th scope="col"> [[#{course.status}]]</th>
+        <th scope="col"> [[#{course.subject}]]</th>
+        <th scope="col"> [[#{course.teacher}]]</th>
+        <th scope="col"> [[#{course.language}]]</th>
     </tr>
     </thead>
     <tbody>
     <tr th:if="${courses.empty}">
-        <td colspan="2"> No Courses Available</td>
+        <td colspan="2"> [[#{course.empty}]]</td>
     </tr>
     <tr th:each="course : ${courses} ">
         <td><span th:text="${course.courseName}"> </span></td>
@@ -32,13 +32,13 @@
         <td><span th:text="${course.subject.name}"></span></td>
         <td><span th:text="${course.teacher.firstName} + ' ' + ${course.teacher.lastName}"></span></td>
         <td><span th:text="${course.language}"></span></td>
-        <td><a th:href="@{course-update/{id}(id=${course.id})}">Edit</a></td>
-        <td><a  th:href="@{course-delete/{id}(id=${course.id})}">Delete</a></td>
+        <td><a th:href="@{course-update/{id}(id=${course.id})}">[[#{course.edit}]]</a></td>
+        <td><a  th:href="@{course-delete/{id}(id=${course.id})}">[[#{course.delete}]]</a></td>
 
         <td>
             <div th:switch="${course.status.name()}">
-                <a th:case="'NOT_STARTED'" th:href="@{course-start/{id}(id=${course.id})}">Start</a>
-                <a th:case="'STARTED'" th:href="@{course-end/{id}(id=${course.id})}">Finish</a>
+                <a th:case="'NOT_STARTED'" th:href="@{course-start/{id}(id=${course.id})}">[[#{course.start}]]</a>
+                <a th:case="'STARTED'" th:href="@{course-end/{id}(id=${course.id})}">[[#{course.finish}]]</a>
             </div>
         </td>
     </tr>
@@ -46,5 +46,6 @@
 </table>
 <div th:include="fragments/bootstrap :: script"></div>
 </body>
-<footer th:insert="fragments/footer :: footer"></footer>
+<footer class="card-footer fixed-bottom" th:insert="fragments/footer :: footer"></footer>
+
 </html>

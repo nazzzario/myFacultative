@@ -6,17 +6,14 @@
     <div th:include="fragments/navbar :: navbar"></div>
 </header>
 <body class="text-center">
-<table>
+<table class="table table-hover">
     <thead>
     <tr>
-        <th> Course</th>
-        <th> Grade</th>
+        <th scope="col"> [[#{course.name}]]</th>
+        <th scope="col"> [[#{course.grade}]]</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${usersGrades.empty}">
-        <td colspan="2"> No Grades Available</td>
-    </tr>
     <tr th:each="grade : ${usersGrades} ">
         <td><span th:text="${grade.course.courseName}"> </span></td>
         <td><span th:text="${grade.grade}"> </span></td>
@@ -25,5 +22,6 @@
 </table>
 <div th:include="fragments/bootstrap :: script"></div>
 </body>
-<footer th:insert="fragments/footer :: footer"></footer>
+<footer class="card-footer fixed-bottom" th:insert="fragments/footer :: footer"></footer>
+
 </html>

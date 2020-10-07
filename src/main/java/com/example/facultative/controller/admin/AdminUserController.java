@@ -31,7 +31,6 @@ public class AdminUserController {
     }
 
 
-    //TODO try to remove logic from controller
     @GetMapping("/users")
     public String getAllUsers(Model model) {
         List<User> allTeachersAndStudents = userService.findAllTeachersAndStudents();

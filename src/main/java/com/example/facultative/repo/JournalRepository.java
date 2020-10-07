@@ -6,9 +6,10 @@ import com.example.facultative.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface JournalRepository extends JpaRepository<Journal,Long> {
-    Journal findByCourseAndUser(Course course, User user);
+    Optional<Journal> findByCourseAndUser(Course course, User user);
 
     void deleteAllByCourse_Id(Long id);
 

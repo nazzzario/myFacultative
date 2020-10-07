@@ -1,4 +1,4 @@
-package com.example.facultative.exceptions;
+package com.example.facultative.exception;
 
 public class CourseNotFoundException extends Exception {
 

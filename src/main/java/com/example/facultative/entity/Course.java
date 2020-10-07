@@ -61,7 +61,7 @@ public class Course {
     @NotNull(message = "{course.start.error}")
     @FutureOrPresent(message = "{course.date.error}")
     private LocalDate startDate;
-
+    
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "{course.end.error}")
     @Future(message = "{course.date.error}")

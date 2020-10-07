@@ -8,37 +8,69 @@
     <div th:include="fragments/navbar :: navbar"></div>
 </header>
 <body>
-<h1 th:text="#{adm.teacher.registration}"></h1>
-<form th:action="@{/admin/registration}" th:object="${userDto}" method="post" enctype="utf8">
-    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-    </div>
-    <div>
-        <label th:text="#{label.username}"></label>
-        <input th:field="*{username}"/>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header" th:text="#{adm.teacher.registration}"></div>
+            <form th:action="@{/admin/registration}" th:object="${userDto}" method="post" enctype="utf8">
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                </div>
 
-        <label>[[#{usr.firstname}]]</label>
-        <input th:field="*{firstName}"/>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label text-md-right" th:text="#{label.username}"></label>
+                    <div class="col-md-6">
+                        <input class="form-control" th:field="*{username}"/>
+                    </div>
+                </div>
 
-        <label>[[#{usr.lastname}]]</label>
-        <input th:field="*{lastName}"/>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label text-md-right" th:text="#{usr.firstname}"></label>
+                    <div class="col-md-6">
+                        <input class="form-control" th:field="*{firstName}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label text-md-right" th:text="#{usr.lastname}"></label>
+                    <div class="col-md-6">
+                        <input class="form-control" th:field="*{lastName}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label text-md-right" th:text="#{usr.email}"></label>
+                    <div class="col-md-6">
+                        <input class="form-control" th:field="*{email}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label text-md-right" th:text="#{usr.password}"></label>
+                    <div class="col-md-6">
+                        <input class="form-control" th:field="*{password}"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label text-md-right" th:text="#{usr.confirm}"></label>
+                    <div class="col-md-6">
+                        <input class="form-control" th:field="*{rePassword}"/>
+                    </div>
+                </div>
+
+                <div class="col-md-6 offset-md-4">
+                    <button class="btn btn-primary" type="submit">
+                        [[#{btn.save}]]
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div>
-        <label>[[#{usr.email}]]</label>
-        <input type="email" th:field="*{email}"/>
-    </div>
-    <div>
-        <label>[[#{usr.password}]]</label>
-        <input type="password" th:field="*{password}"/>
-    </div>
-    <div>
-        <label>[[#{usr.confirm}]]</label>
-        <input type="password" th:field="*{rePassword}"/>
-    </div>
-    <button type="submit" >[[#{btn.submit}]]</button>
-</form>
+</div>
 <div th:include="fragments/bootstrap :: script"></div>
 </body>
-<footer th:insert="fragments/footer :: footer"></footer>
+<footer class="card-footer fixed-bottom" th:insert="fragments/footer :: footer"></footer>
+
 </html>
 

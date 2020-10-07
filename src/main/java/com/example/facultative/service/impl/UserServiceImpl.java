@@ -4,15 +4,14 @@ import com.example.facultative.entity.User;
 import com.example.facultative.entity.dto.UserDto;
 import com.example.facultative.entity.enums.UserRole;
 import com.example.facultative.entity.enums.UserStatus;
+import com.example.facultative.exception.CourseNotFoundException;
 import com.example.facultative.repo.UserRepository;
 import com.example.facultative.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,29 +25,16 @@ public class UserServiceImpl implements UserService{
     }
 
 
-    public void saveUser(UserDto userDto) {
-        User user = User.builder()
-                .username(userDto.getUsername())
-                .firstName(userDto.getFirstName())
-                .lastName(userDto.getLastName())
-                .email(userDto.getEmail())
-                .password(userDto.getPassword())
-                .role(UserRole.STUDENT)
-                .userStatus(UserStatus.ACTIVE)
-                .build();
-        userRepository.save(user);
-    }
-
     @Override
-    public void saveTeacher(UserDto userDto) {
+    public void saveUser(UserDto userDto,UserRole userRole) {
         User user = User.builder()
                 .username(userDto.getUsername())
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
                 .email(userDto.getEmail())
-//                .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
                 .password(userDto.getPassword())
-                .role(UserRole.TEACHER)
+                //.password(bCryptPasswordEncoder.encode(userDto.getPassword()))
+                .role(userRole)
                 .userStatus(UserStatus.ACTIVE)
                 .build();
         userRepository.save(user);
@@ -56,16 +42,15 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> findAllTeachers() {
-        return userRepository.findAllByRole(UserRole.TEACHER);
+        return userRepository.findAllByRole(UserRole.TEACHER)
+                .orElseThrow(() -> new UsernameNotFoundException("There is no teachers in the system"));
     }
 
-    //TODO improve findAllByRoleIn method
     @Override
     public List<User> findAllTeachersAndStudents() {
-        List<UserRole> roles = new ArrayList<>();
-        roles.add(UserRole.TEACHER);
-        roles.add(UserRole.STUDENT);
-        return userRepository.findAllByRoleIn(roles);
+        return userRepository
+                .findAllByRoleIn(Arrays.asList(UserRole.STUDENT, UserRole.TEACHER))
+                .orElseThrow(() ->new UsernameNotFoundException("There is no teacher and students in the system"));
     }
 
     @Override
@@ -77,31 +62,32 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<String> getAllBlockedUsersName() {
-        List<User> allByStatus = userRepository.findAllByUserStatus(UserStatus.BLOCKED);
-        return allByStatus.stream().map(User::getUsername).collect(Collectors.toList());
+        return userRepository.findAllByUserStatus(UserStatus.BLOCKED)
+                .stream().map(User::getUsername)
+                .collect(Collectors.toList());
     }
 
     @Override
     public User findUserById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        if(user.isPresent()){
-            return user.get();
-        }
-        throw new UsernameNotFoundException("User with id " + id + " not found");
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("User with id " + id + " not found"));
     }
 
     @Override
     public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User with email " + email + " not found "));
     }
 
     @Override
     public User findUserByUsername(String name) {
-        return userRepository.findByUsername(name);
+        return userRepository.findByUsername(name)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username " + name + " not found"));
     }
 
     @Override
-    public List<User> findAllByCourseId(Long courseId) {
-        return userRepository.findAllByCoursesId(courseId);
+    public List<User> findAllByCourseId(Long courseId) throws CourseNotFoundException {
+        return userRepository.findAllByCoursesId(courseId)
+                .orElseThrow(() -> new CourseNotFoundException("Course with id " + courseId + " not found"));
     }
 }

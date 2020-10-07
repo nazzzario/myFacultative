@@ -4,6 +4,7 @@ import com.example.facultative.entity.Course;
 import com.example.facultative.entity.Journal;
 import com.example.facultative.entity.User;
 import com.example.facultative.entity.enums.Grade;
+import com.example.facultative.exception.CourseNotFoundException;
 import com.example.facultative.service.CourseService;
 import com.example.facultative.service.JournalService;
 import com.example.facultative.service.UserService;
@@ -44,25 +45,27 @@ public class TeacherController {
     }
 
     @GetMapping("/journal/{id}")
-    public String studentsInTheCourse(@PathVariable("id") Long courseId, Model model, Journal journal) {
+    public String studentsInTheCourse(@PathVariable("id") Long courseId, Model model, Journal journal) throws CourseNotFoundException {
         List<User> allByCourseId = userService.findAllByCourseId(courseId);
+        Course courseById = courseService.findCourseById(courseId);
+        model.addAttribute("course",courseById);
         model.addAttribute("journalDto", journal);
         model.addAttribute("studentsList", allByCourseId);
         return "list-of-students";
     }
 
-    //todo try find better way
     @PostMapping("/journal/")
     public String saveToJournal(@RequestParam("userId")Long userId,
                                 @RequestParam("courseId") Long courseId,
                                 Journal journal){
         User userById = userService.findUserById(userId);
         Course courseById = courseService.findCourseById(courseId);
+
         journalService.saveOrUpdateJournals(courseById, userById);
         journal.setUser(userById);
         journal.setCourse(courseById);
         journalService.saveJournal(journal);
-        return "main";
+        return "redirect:/teacher/journal/" + courseId;
     }
 
 

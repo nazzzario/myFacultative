@@ -8,47 +8,83 @@
     <div th:include="fragments/navbar :: navbar"></div>
 </header>
 <body>
-<h1 th:text="#{create.course}"></h1>
-<form th:action="@{/admin/course}" th:object="${course}" method="post" enctype="utf8">
-    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header" th:text="#{create.course}"></div>
+            <div class="card-body">
+                <form th:action="@{/admin/course}" th:object="${course}" method="post" enctype="utf8">
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label text-md-right" th:text="#{course.name}"></label>
+                        <div class="col-md-6">
+                            <input class="form-control" th:field="*{courseName}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label text-md-right" th:text="#{course.description}"></label>
+                        <div class="col-md-6">
+                            <input class="form-control" th:field="*{description}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label text-md-right" th:text="#{course.start.date}"></label>
+                        <div class="col-md-6">
+                            <input type="date" class="form-control" th:field="*{startDate}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label text-md-right" th:text="#{course.end.date}"></label>
+                        <div class="col-md-6">
+                            <input type="date" class="form-control" th:field="*{endDate}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-row justify-content-center">
+                        <div class="col-sm-3">
+                            <select name="language" class="form-control">
+                                <option disabled>[[#{course.language}]]</option>
+                                <option th:each="language: ${T(com.example.facultative.entity.enums.Languages).values()}"
+                                        th:value="${language}" th:text="${language}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <select name="subject" class="form-control">
+                                <option disabled>[[#{course.subject}]]</option>
+                                <option th:each="subject: ${subjects}"
+                                        th:value="${subject.id}" th:text="${subject.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <select name="teacher" class="form-control">
+                                <option disabled>[[#{course.teacher}]]</option>
+                                <option th:each="teacher: ${teachers}"
+                                        th:value="${teacher.id}"
+                                        th:text="${teacher.firstName} + ' ' + ${teacher.lastName}"></option>
+                            </select>
+                        </div >
+
+                    </div>
+                    <div class="col-md-6 offset-md-4 mt-3">
+                        <button class="btn btn-primary" type="submit">
+                            [[#{btn.submit}]]
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div>
-        <label>[[#{course.name}]]:</label>
-        <input th:field="*{courseName}"/>
-
-        <label>[[#{course.description}]]:</label>
-        <input th:field="*{description}"/>
-
-        <label>[[#{course.start.date}]]:</label>
-        <input type="date" th:field="*{startDate}"/>
-    </div>
-    <div>
-        <label>[[#{course.end.date}]]:</label>
-        <input type="date" th:field="*{endDate}"/>
-    </div>
-
-    <select name="language">
-        <option th:each="language: ${T(com.example.facultative.entity.enums.Languages).values()}"
-                th:value="${language}" th:text="${language}"></option>
-    </select>
-
-    <select name="subject">
-        <option disabled>[[#{course.subject}]]</option>
-        <option th:each="subject: ${subjects}"
-                th:value="${subject.id}" th:text="${subject.name}"></option>
-    </select>
-
-    <select name="teacher">
-        <option disabled>[[#{course.teacher}]]</option>
-        <option th:each="teacher: ${teachers}"
-                th:value="${teacher.id}" th:text="${teacher.firstName} + ' ' + ${teacher.lastName}"></option>
-    </select>
-
-    <button type="submit">[[#{btn.submit}]]</button>
-</form>
+</div>
 <div th:include="fragments/bootstrap :: script"></div>
 </body>
-<footer th:insert="fragments/footer :: footer"></footer>
+<footer class="bd-footer" th:insert="fragments/footer :: footer"></footer>
+
 </html>

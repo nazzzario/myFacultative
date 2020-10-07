@@ -8,8 +8,8 @@ import com.example.facultative.service.JournalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JournalServiceImpl implements JournalService {
@@ -29,10 +29,8 @@ public class JournalServiceImpl implements JournalService {
 
     @Override
     public void saveOrUpdateJournals(Course course, User user) {
-        Journal byCourseAndUser = journalRepository.findByCourseAndUser(course, user);
-        if(byCourseAndUser != null){
-            id = byCourseAndUser.getId();
-        }
+        Optional<Journal> byCourseAndUser = journalRepository.findByCourseAndUser(course, user);
+        byCourseAndUser.ifPresent(journal -> id = journal.getId());
     }
 
     @Override

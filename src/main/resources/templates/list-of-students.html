@@ -8,36 +8,35 @@
 </header>
 <body>
 <form th:action="@{/teacher/journal/}" th:object="${journalDto}" method="post" enctype="utf8">
-    <table>
+    <table class="table">
         <thead>
         <tr>
-            <th> Email</th>
-            <th> Username</th>
-            <th> Name</th>
+            <th scope="col"> [[#{usr.email}]]</th>
+            <th scope="col"> [[#{user.username}]]</th>
+            <th scope="col"> [[#{usr.name}]]</th>
         </tr>
         </thead>
         <tbody>
-
-        <tr th:if="${studentsList.empty}">
-            <td colspan="2"> No Users Available</td>
-        </tr>
         <tr th:each="user : ${studentsList}">
-            <td ><span th:text="${user.email}"> </span></td>
-            <td><span th:text="${user.username}"> </span></td>
-            <td><span th:text="${user.id}"> </span>
+            <td><span th:text="${user.email}"> </span></td>
+            <td><span th:text="${user.username}"> </span>
                 <input type="hidden" name="userId" th:value="${user.id}"/>
                 <input type="hidden" name="courseId" th:value="${id}"/>
             </td>
             <td><span th:text="${user.firstName} + ' ' + ${user.lastName}"></span></td>
             <td>
-                <select name="grade">
-                    <option disabled>Chose grade</option>
-                    <option th:each="grade: ${grades}"
-                            th:value="${grade.name()}" th:text="${grade.name()}"></option>
-                </select>
+                <div th:if="${course.status.FINISHED}">
+                    <select name="grade">
+                        <option disabled>Chose grade</option>
+                        <option th:each="grade: ${grades}"
+                                th:value="${grade.name()}" th:text="${grade.name()}"></option>
+                    </select>
+                </div>
             </td>
-            <td >
-                <button type="submit">Save</button>
+            <td>
+                <div th:switch="${course.status.FINISHED}">
+                    <button  type="submit">[[#{btn.submit}]]</button>
+                </div>
             </td>
         </tr>
         </tbody>
@@ -47,5 +46,6 @@
 </form>
 <div th:include="fragments/bootstrap :: script"></div>
 </body>
-<footer th:insert="fragments/footer :: footer"></footer>
+<footer class="card-footer fixed-bottom" th:insert="fragments/footer :: footer"></footer>
+
 </html>

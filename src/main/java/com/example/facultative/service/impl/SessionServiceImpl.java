@@ -31,7 +31,6 @@ public class SessionServiceImpl implements SessionService {
                 if (userDetails.getUsername().equals(username)) {
                     for (SessionInformation information : sessionRegistry
                             .getAllSessions(userDetails, true)) {
-
                         information.expireNow();
                         log.info("{} session expired", username );
                     }

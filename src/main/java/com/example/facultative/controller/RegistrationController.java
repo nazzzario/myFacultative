@@ -1,6 +1,7 @@
 package com.example.facultative.controller;
 
 import com.example.facultative.entity.dto.UserDto;
+import com.example.facultative.entity.enums.UserRole;
 import com.example.facultative.service.UserService;
 import com.example.facultative.utils.ValidateUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +44,7 @@ public class RegistrationController {
             return "registration";
         }
         if (ValidateUtils.checkIfUserExists(userDto, bindingResult, userService)) return "registration";
-        userService.saveUser(userDto);
+        userService.saveUser(userDto, UserRole.STUDENT);
         log.info("User {} successfully registered ", userDto.getUsername());
         return "main";
     }

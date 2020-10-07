@@ -8,53 +8,83 @@
     <div th:include="fragments/navbar :: navbar"></div>
 </header>
 <body>
-<h1>Update course</h1>
-<form th:action="@{/admin/course-update}" th:object="${course}" method="post" enctype="utf8">
-    <div>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header" th:text="#{updete.course}"></div>
+            <div class="card-body">
+                <form th:action="@{/admin/course-update}" th:object="${course}" method="post" enctype="utf8">
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                    </div>
 
-        <input hidden type="number" th:field="*{id}" id="id" placeholder="ID">
-        <label>Course name:</label>
-        <input th:field="*{courseName}"/>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label text-md-right" th:text="#{course.name}"></label>
+                        <div class="col-md-6">
+                            <input class="form-control" th:field="*{courseName}"/>
+                        </div>
+                    </div>
 
-        <label>Description</label>
-        <input th:field="*{description}"/>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label text-md-right" th:text="#{course.description}"></label>
+                        <div class="col-md-6">
+                            <input class="form-control" th:field="*{description}"/>
+                        </div>
+                    </div>
 
-        <label>Start date</label>
-        <input type="date" th:field="*{startDate}"/>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label text-md-right" th:text="#{course.start.date}"></label>
+                        <div class="col-md-6">
+                            <input type="date" class="form-control" th:field="*{startDate}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label text-md-right" th:text="#{course.end.date}"></label>
+                        <div class="col-md-6">
+                            <input type="date" class="form-control" th:field="*{endDate}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-row justify-content-center">
+                        <div class="col-sm-3">
+                            <select name="language" class="form-control">
+                                <option disabled>[[#{course.language}]]</option>
+                                <option th:each="language: ${T(com.example.facultative.entity.enums.Languages).values()}"
+                                        th:value="${language}" th:text="${language}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <select name="subject" class="form-control">
+                                <option disabled>[[#{course.subject}]]</option>
+                                <option th:each="subject: ${subjects}"
+                                        th:value="${subject.id}" th:text="${subject.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <select name="teacher" class="form-control">
+                                <option disabled>[[#{course.teacher}]]</option>
+                                <option th:each="teacher: ${teachers}"
+                                        th:value="${teacher.id}"
+                                        th:text="${teacher.firstName} + ' ' + ${teacher.lastName}"></option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 offset-md-4 mt-3">
+                        <button class="btn btn-primary" type="submit">
+                            [[#{btn.update}]]
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div>
-        <label>End date</label>
-        <input type="date" th:field="*{endDate}"/>
-    </div>
-
-    <label>
-        <select name="language">
-            <option disabled>Languages</option>
-            <option th:each="language: ${languages}"
-                    th:value="${language}" th:text="${language.name()}"></option>
-        </select>
-    </label>
-
-
-    <label>
-        <select name="subject">
-            <option disabled>Subjects</option>
-            <option th:each="subject: ${subjects}"
-                    th:value="${subject.id}" th:text="${subject.name}"></option>
-        </select>
-    </label>
-
-    <label>
-        <select name="teacher">
-            <option disabled>Teachers</option>
-            <option th:each="teacher: ${teachers}"
-                    th:value="${teacher.id}" th:text="${teacher.firstName} + ' ' + ${teacher.lastName}"></option>
-        </select>
-    </label>
-
-    <button type="submit">Update</button>
-</form>
+</div>
 <div th:include="fragments/bootstrap :: script"></div>
 </body>
-<footer th:insert="fragments/footer :: footer"></footer>
+<footer class="card-footer fixed-bottom" th:insert="fragments/footer :: footer"></footer>
+
 </html>

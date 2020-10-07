@@ -3,7 +3,7 @@ package com.example.facultative.controller;
 import com.example.facultative.entity.Course;
 import com.example.facultative.entity.Journal;
 import com.example.facultative.entity.User;
-import com.example.facultative.exceptions.CourseNotFoundException;
+import com.example.facultative.exception.CourseNotFoundException;
 import com.example.facultative.service.CourseService;
 import com.example.facultative.service.JournalService;
 import com.example.facultative.service.UserService;
