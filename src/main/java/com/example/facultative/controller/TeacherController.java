@@ -47,12 +47,12 @@ public class TeacherController {
     @GetMapping("/journal/{id}")
     public String studentsInTheCourse(@PathVariable("id") Long courseId, Model model, Journal journal) throws CourseNotFoundException {
         List<User> allByCourseId = userService.findAllByCourseId(courseId);
-        Course courseById = courseService.findCourseById(courseId);
-        model.addAttribute("course",courseById);
         model.addAttribute("journalDto", journal);
         model.addAttribute("studentsList", allByCourseId);
         return "list-of-students";
     }
+
+    //todo fix
 
     @PostMapping("/journal/")
     public String saveToJournal(@RequestParam("userId")Long userId,

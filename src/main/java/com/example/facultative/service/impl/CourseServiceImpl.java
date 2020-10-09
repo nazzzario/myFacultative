@@ -13,12 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -28,7 +26,8 @@ public class CourseServiceImpl implements CourseService {
     private final UserRepository userRepository;
     private final JournalRepository journalRepository;
 
-    public CourseServiceImpl(CourseRepository courseRepository, UserRepository userRepository, JournalRepository journalRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, UserRepository userRepository,
+                             JournalRepository journalRepository) {
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
         this.journalRepository = journalRepository;
@@ -101,8 +100,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     private User getUser(final String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User with name" + username + "not found"));
+        return userRepository.findByUsername(username);
+//                .orElseThrow(() -> new UsernameNotFoundException("User with name" + username + "not found"));
     }
 
 

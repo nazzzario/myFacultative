@@ -72,6 +72,7 @@ public class AdminCourseController {
         if(bindingResult.hasErrors()){
             return "create_course";
         }
+
         courseService.saveCourse(course);
         log.info("Course {} successfully created ", course.getCourseName());
         return "create_course";

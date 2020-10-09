@@ -2,7 +2,6 @@ package com.example.facultative.controller.admin;
 
 import com.example.facultative.entity.User;
 import com.example.facultative.entity.enums.UserStatus;
-import com.example.facultative.service.SessionService;
 import com.example.facultative.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,22 +21,16 @@ import java.util.List;
 public class AdminUserController {
 
     private final UserService userService;
-    private final SessionService sessionService;
 
     @Autowired
-    public AdminUserController(UserService userService, SessionService sessionService) {
+    public AdminUserController(UserService userService) {
         this.userService = userService;
-        this.sessionService = sessionService;
     }
 
 
     @GetMapping("/users")
     public String getAllUsers(Model model) {
         List<User> allTeachersAndStudents = userService.findAllTeachersAndStudents();
-        List<String> allBlockedUsersName = userService.getAllBlockedUsersName();
-        for (String userName : allBlockedUsersName) {
-            sessionService.expireUserSessions(userName);
-        }
         model.addAttribute("users", allTeachersAndStudents);
         return "users";
     }
@@ -53,6 +46,4 @@ public class AdminUserController {
         userService.changeUserStatus(id, UserStatus.ACTIVE);
         return "redirect:/admin/users";
     }
-
-
 }
