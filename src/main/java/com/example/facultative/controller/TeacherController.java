@@ -44,9 +44,12 @@ public class TeacherController {
         return "journal";
     }
 
+    //todo fix
     @GetMapping("/journal/{id}")
     public String studentsInTheCourse(@PathVariable("id") Long courseId, Model model, Journal journal) throws CourseNotFoundException {
         List<User> allByCourseId = userService.findAllByCourseId(courseId);
+        Course courseById = courseService.findCourseById(courseId);
+        model.addAttribute("course",courseById);
         model.addAttribute("journalDto", journal);
         model.addAttribute("studentsList", allByCourseId);
         return "list-of-students";
@@ -57,14 +60,10 @@ public class TeacherController {
     @PostMapping("/journal/")
     public String saveToJournal(@RequestParam("userId")Long userId,
                                 @RequestParam("courseId") Long courseId,
-                                Journal journal){
-        User userById = userService.findUserById(userId);
-        Course courseById = courseService.findCourseById(courseId);
+                                Grade grade){
+        journalService.saveOrUpdateJournals(courseId, userId, grade);
 
-        journalService.saveOrUpdateJournals(courseById, userById);
-        journal.setUser(userById);
-        journal.setCourse(courseById);
-        journalService.saveJournal(journal);
+//        journalService.saveJournal(journal);
         return "redirect:/teacher/journal/" + courseId;
     }
 
@@ -74,4 +73,5 @@ public class TeacherController {
         List<Grade> gradeList = Arrays.asList(Grade.values());
         model.addAttribute("grades", gradeList);
     }
+
 }

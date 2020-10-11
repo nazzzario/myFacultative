@@ -1,15 +1,14 @@
 package com.example.facultative.service;
 
-import com.example.facultative.entity.Course;
 import com.example.facultative.entity.Journal;
-import com.example.facultative.entity.User;
+import com.example.facultative.entity.enums.Grade;
 
 import java.util.List;
 
 public interface JournalService{
     void saveJournal(Journal journal);
 
-    void saveOrUpdateJournals(Course course, User user);
+    void saveOrUpdateJournals(Long courseId, Long userId, Grade grade);
 
     void deleteJournal(Long id);
 
