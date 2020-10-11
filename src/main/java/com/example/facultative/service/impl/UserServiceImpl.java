@@ -8,20 +8,25 @@ import com.example.facultative.exception.CourseNotFoundException;
 import com.example.facultative.repo.UserRepository;
 import com.example.facultative.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -32,8 +37,7 @@ public class UserServiceImpl implements UserService{
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
                 .email(userDto.getEmail())
-                .password(userDto.getPassword())
-                //.password(bCryptPasswordEncoder.encode(userDto.getPassword()))
+                .password(passwordEncoder.encode(userDto.getPassword()))
                 .role(userRole)
                 .userStatus(UserStatus.ACTIVE)
                 .build();
@@ -86,5 +90,15 @@ public class UserServiceImpl implements UserService{
     public List<User> findAllByCourseId(Long courseId) throws CourseNotFoundException {
         return userRepository.findAllByCoursesId(courseId)
                 .orElseThrow(() -> new CourseNotFoundException("Course with id " + courseId + " not found"));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        User byUsername = userRepository.findByUsername(username);
+        if (byUsername == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return byUsername;
     }
 }

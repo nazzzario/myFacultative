@@ -5,9 +5,9 @@
 </head>
 <body class="text-center">
 <form class="form-group" th:action="@{/login}" method="post">
-<!--    <div class="alert alert-danger">-->
-<!--        <label th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION']}"></label>-->
-<!--    </div>-->
+    <div class="alert alert-danger">
+        <label th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION']}"></label>
+    </div>
     <div class="custom-select-sm">
         <select id="locales">
             <option value=""></option>

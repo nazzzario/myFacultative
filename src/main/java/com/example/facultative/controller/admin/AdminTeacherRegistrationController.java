@@ -39,7 +39,6 @@ public class AdminTeacherRegistrationController {
     public String createTeacher(@Valid UserDto userDto, BindingResult bindingResult) {
         if (!userDto.getPassword().equals(userDto.getRePassword())) {
             bindingResult.reject("password.match");
-
         }
 
         if (bindingResult.hasErrors()) {
