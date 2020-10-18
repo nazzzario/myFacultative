@@ -3,31 +3,47 @@
     <div th:include="fragments/bootstrap :: head"></div>
 
 </head>
-<body class="text-center">
-<form class="form-group" th:action="@{/login}" method="post">
-    <div class="alert alert-danger">
-        <label th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION']}"></label>
-    </div>
-    <div class="custom-select-sm">
-        <select id="locales">
-            <option value=""></option>
-            <option value="en" th:text="#{lang.en}"></option>
-            <option value="ua" th:text="#{lang.ua}"></option>
-        </select>
-    </div>
-    <div >
-        <h1 class="h3 mb-3 font-weight-normal" th:text="#{login.signin}"></h1>
-        <div >
-            <input class="form-control-sm" type="text" name="username" th:placeholder="#{user.username}"/>
-        </div>
-        <div class="form-control-plaintext">
-            <input class="form-control-sm col-xs-2" type="password" name="password" th:placeholder="#{user.password}"/>
-        </div>
-    </div>
-    <button class="btn btn-primary" type="submit" th:text="#{label.login}"></button>
-    <div><a href="/registration">[[#{create.account}]]</a></div>
-</form>
 
+<body class="text-center">
+<div class="container">
+    <div class="mr-2" th:include="fragments/locale :: selectLanguage"></div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header" th:text="#{login.signin}"></div>
+                <div class="card-body">
+
+                    <div th:if="${error}">
+                        <div class="alert alert-danger" role="alert">[[#{login.invalid}]]</div>
+                    </div>
+
+                    <div th:if="${logout}">
+                        <div class="alert alert-primary" role="alert">[[#{logout.success}]]</div>
+                    </div>
+
+                    <form class="form-group" th:action="@{/login}" method="post">
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right" th:text="#{label.username}"></label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" name="username"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right" th:text="#{user.password}"></label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="password" name="password"/>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit" th:text="#{label.login}"></button>
+                        <div><a href="/registration">[[#{create.account}]]</a></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div th:include="fragments/bootstrap :: script"></div>
 </body>
 <div th:include="fragments/locale :: localeScript"></div>

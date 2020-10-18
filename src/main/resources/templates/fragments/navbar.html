@@ -40,7 +40,7 @@
 
         <div th:include="fragments/locale :: localeScript"></div>
 
-        <form th:action="@{/logout}" method="post" sec:authorize="!isAuthenticated()">
+        <form th:action="@{/login}" method="get" sec:authorize="!isAuthenticated()">
             <input class="btn btn-outline-success" type="submit" th:value="#{nav.signin}">
         </form>
     </nav>
