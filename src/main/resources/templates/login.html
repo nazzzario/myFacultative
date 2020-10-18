@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="ua">
 <head>
     <div th:include="fragments/bootstrap :: head"></div>
 
@@ -12,7 +12,6 @@
             <div class="card">
                 <div class="card-header" th:text="#{login.signin}"></div>
                 <div class="card-body">
-
                     <div th:if="${error}">
                         <div class="alert alert-danger" role="alert">[[#{login.invalid}]]</div>
                     </div>

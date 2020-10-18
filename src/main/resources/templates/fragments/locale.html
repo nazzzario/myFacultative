@@ -6,7 +6,8 @@
         $("#locales").change(function () {
             var selectedOption = $('#locales').val();
             if (selectedOption != ''){
-                window.location.replace('?lang=' + selectedOption);
+                document.cookie = "lang=" + selectedOption;
+                location.reload();
             }
         });
     });
