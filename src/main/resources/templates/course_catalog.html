@@ -26,6 +26,7 @@
                 <p class="card-text" th:text="${course.description}"></p>
                 <p class="card-text" th:text="${course.startDate} + ' ' + ${course.endDate}"></p>
                 <p class="card-text" th:text="${course.students.size()}"></p>
+                <p class="card-text" th:text="${course.language.name()}"></p>
                 <a th:if="${course.status.NOT_STARTED}" th:href="@{/join-course/{id}(id=${course.id})}" class="card-link">[[#{course.join}]]</a>
             </div>
         </div>

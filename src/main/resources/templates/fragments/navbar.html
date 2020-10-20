@@ -18,7 +18,7 @@
                     <a class="nav-link" href="/admin/registration" th:text="#{nav.adm.reg}"></a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-                    <a class="nav-link" href="/admin/course" th:text="#{nav.adm.crt}"></a>
+                    <a class="nav-link" href="/admin/course" th:text="#{nav.adm.crt}" ></a>
                 </li>
 
                 <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">

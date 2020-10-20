@@ -102,6 +102,11 @@
             <version>2.2.0.RELEASE</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+
 
     </dependencies>
 
