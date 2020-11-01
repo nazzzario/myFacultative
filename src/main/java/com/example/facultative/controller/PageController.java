@@ -26,6 +26,7 @@ public class PageController {
         return isAuthenticated() ? "redirect:/" : "login";
     }
 
+
     private boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || AnonymousAuthenticationToken.class.isAssignableFrom(authentication.getClass())) {

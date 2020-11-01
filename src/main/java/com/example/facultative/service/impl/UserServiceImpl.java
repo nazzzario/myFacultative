@@ -46,15 +46,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public List<User> findAllTeachers() {
-        return userRepository.findAllByRole(UserRole.TEACHER)
-                .orElseThrow(() -> new UsernameNotFoundException("There is no teachers in the system"));
+        return userRepository.findAllByRole(UserRole.TEACHER);
     }
 
     @Override
     public List<User> findAllTeachersAndStudents() {
         return userRepository
-                .findAllByRoleIn(Arrays.asList(UserRole.STUDENT, UserRole.TEACHER))
-                .orElseThrow(() ->new UsernameNotFoundException("There is no teacher and students in the system"));
+                .findAllByRoleIn(Arrays.asList(UserRole.STUDENT, UserRole.TEACHER));
     }
 
     @Override

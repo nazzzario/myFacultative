@@ -101,7 +101,6 @@ public class CourseServiceImpl implements CourseService {
 
     private User getUser(final String username) {
         return userRepository.findByUsername(username);
-//                .orElseThrow(() -> new UsernameNotFoundException("User with name" + username + "not found"));
     }
 
 
