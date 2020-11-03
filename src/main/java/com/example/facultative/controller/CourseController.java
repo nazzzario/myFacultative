@@ -59,11 +59,16 @@ public class CourseController {
         return "course_catalog";
     }
 
+    @GetMapping("/subject/{subject_id}")
+    public String getCourseBySubject(@PathVariable("subject_id") long subjectId,Model model){
+        final List<Course> courseList = courseService.findAllBySubjectId(subjectId);
+        model.addAttribute("courseList",courseList);
+        return "course_subjects";
+    }
+
     @ModelAttribute("subjects")
     public void getSubjects(Model model){
         List<Subject> allSubjects = subjectService.getAllSubjects();
         model.addAttribute("subjects",allSubjects);
     }
-
-
 }

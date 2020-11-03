@@ -4,6 +4,7 @@
 <head>
     <div th:include="fragments/bootstrap :: head"></div>
     <title th:text="#{main.welcome}"></title>
+    <link rel="stylesheet" href="../static/css/myfooter.css">
 </head>
 <header>
     <div th:include="fragments/navbar :: navbar"></div>
@@ -13,5 +14,7 @@
 <div th:include="fragments/task"></div>
 <div th:include="fragments/bootstrap :: script"></div>
 </body>
-<footer class="card-footer fixed-bottom" th:insert="fragments/footer :: footer"></footer>
+<!--<footer class="footer">-->
+<!--    <div class="fixed-bottom myfooter" th:insert="fragments/footer :: footer"></div>-->
+<!--</footer>-->
 </html>
