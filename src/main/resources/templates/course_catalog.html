@@ -10,19 +10,19 @@
     <div th:include="fragments/navbar :: navbar"></div>
 </header>
 <body>
+<!--todo make better-->
 <div class="container mt-4 mb-2">
     <a type="bu" th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=courseName&sortOrder=' + ${reverseSortOrder}}">[[#{sort.course.name}]]</a>
     <a th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=startDate&sortOrder=' + ${reverseSortOrder}}">[[#{sort.course.start}]]</a>
     <a th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=students&sortOrder=' + ${reverseSortOrder}}">[[#{sort.student.number}]]</a>
-
 </div>
 <div class="card-columns justify-content-center">
     <div th:each="course: ${courseList}">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title" th:text="${course.courseName}"></h5>
-                <h6 class="card-subtitle mb-2 text-muted"
-                    th:text="${course.teacher.firstName} + ' ' + ${course.teacher.lastName}"></h6>
+                <a class="card-subtitle mb-2 text-muted"
+                    th:text="${course.teacher.firstName} + ' ' + ${course.teacher.lastName}" th:href="@{|/course_catalog/teacher/${course.teacher.id}|}"></a>
                 <p class="card-text" th:text="${course.description}"></p>
                 <p class="card-text" th:text="${course.startDate} + ' ' + ${course.endDate}"></p>
                 <p class="card-text" th:text="${course.students.size()}"></p>

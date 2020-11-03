@@ -66,6 +66,13 @@ public class CourseController {
         return "course_subjects";
     }
 
+    @GetMapping("/teacher/{teacher_id}")
+    public String getAllCoursesByTeacher(@PathVariable("teacher_id") long teacherId, Model model){
+        final List<Course> teachers = courseService.findAllCourseByTeacherId(teacherId);
+        model.addAttribute("teachers",teachers);
+        return "course_teacher";
+    }
+
     @ModelAttribute("subjects")
     public void getSubjects(Model model){
         List<Subject> allSubjects = subjectService.getAllSubjects();
