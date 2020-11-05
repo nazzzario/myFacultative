@@ -3,42 +3,61 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:include="fragments/bootstrap :: head"></div>
-    <link rel="stylesheet" href="../static/style.css">
-
+    <title>Course catalog</title>
 </head>
 <header>
     <div th:include="fragments/navbar :: navbar"></div>
 </header>
 <body>
 <!--todo make better-->
-<div class="container mt-4 mb-2">
-    <a type="bu" th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=courseName&sortOrder=' + ${reverseSortOrder}}">[[#{sort.course.name}]]</a>
-    <a th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=startDate&sortOrder=' + ${reverseSortOrder}}">[[#{sort.course.start}]]</a>
-    <a th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=students&sortOrder=' + ${reverseSortOrder}}">[[#{sort.student.number}]]</a>
+<!--<div class="container mt-4 mb-2">-->
+<!--    <a type="bu" th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=courseName&sortOrder=' + ${reverseSortOrder}}">[[#{sort.course.name}]]</a>-->
+<!--    <a th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=startDate&sortOrder=' + ${reverseSortOrder}}">[[#{sort.course.start}]]</a>-->
+<!--    <a th:href="@{'/course_catalog/' + ${currentPage} + '?sortField=students&sortOrder=' + ${reverseSortOrder}}">[[#{sort.student.number}]]</a>-->
+<!--</div>-->
+<div class="col-sm-3">
+    <select name="subject" class="form-control">
+        <option>[[#{sort.course.name}]]</option>
+        <option>[[#{sort.course.start}]]</option>
+        <option>[[#{sort.student.number}]]</option>
+    </select>
 </div>
-<div class="card-columns justify-content-center">
-    <div th:each="course: ${courseList}">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${course.courseName}"></h5>
-                <a class="card-subtitle mb-2 text-muted"
-                    th:text="${course.teacher.firstName} + ' ' + ${course.teacher.lastName}" th:href="@{|/course_catalog/teacher/${course.teacher.id}|}"></a>
-                <p class="card-text" th:text="${course.description}"></p>
-                <p class="card-text" th:text="${course.startDate} + ' ' + ${course.endDate}"></p>
-                <p class="card-text" th:text="${course.students.size()}"></p>
-                <p class="card-text" th:text="${course.language.name()}"></p>
-                <a th:if="${course.status.NOT_STARTED}" th:href="@{/join-course/{id}(id=${course.id})}" class="card-link">[[#{course.join}]]</a>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-auto">
+            <div class="card-columns justify-content-center">
+                <div th:each="course: ${courseList}">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${course.courseName}"></h5>
+                            <a class="card-subtitle mb-2 text-muted"
+                               th:text="${course.teacher.firstName} + ' ' + ${course.teacher.lastName}"
+                               th:href="@{|/course_catalog/teacher/${course.teacher.id}|}"></a>
+                            <p class="card-text" th:text="${course.description}"></p>
+                            <p class="card-text" th:text="${course.startDate} + ' ' + ${course.endDate}"></p>
+                            <p class="card-text" th:text="${course.students.size()}"></p>
+                            <p class="card-text" th:text="${course.language.name()}"></p>
+                            <a th:if="${course.status.NOT_STARTED}" th:href="@{/join-course/{id}(id=${course.id})}"
+                               class="card-link">[[#{course.join}]]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div th:each="subject: ${subjects}">
+                <a th:text="${subject.name}" th:href="@{|/course_catalog/subject/${subject.id}|}"></a>
             </div>
         </div>
     </div>
 </div>
-
-<div  th:each="subject: ${subjects}">
-    <a th:text="${subject.name}" th:href="@{|/course_catalog/subject/${subject.id}|}"></a>
+<div class="align-content-center">
+    <div class="align-content-center " th:include="fragments/pagination :: pagination"></div>
 </div>
 
 <div th:include="fragments/bootstrap :: script"></div>
-<div class="align-content-center" th:include="fragments/pagination :: pagination"></div>
 </body>
 <div class="fixed-bottom myfooter" th:insert="fragments/footer :: footer"></div>
 </html>

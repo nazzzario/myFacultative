@@ -1,4 +1,4 @@
-<div th:fragment="pagination" th:if = "${totalPages > 1}">
+<div class="align-content-center" th:fragment="pagination" th:if = "${totalPages > 1}">
         <ul class="pagination">
 					<li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
 						<a class="page-link" th:if="${currentPage != i}" th:href="@{'/course_catalog/' + ${i}+ '?sortField=' + ${sortField} + '&sortOrder=' + ${sortOrder}}">[[${i}]]</a>

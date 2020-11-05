@@ -36,9 +36,9 @@ public class CourseController {
         return findPaginated(1, "courseName","asc", model);
     }
 
+    //todo pagination
     @GetMapping("{pageNo}")
-    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
-                                @RequestParam("sortField") String sortField,
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo, @RequestParam("sortField") String sortField,
                                 @RequestParam("sortOrder") String sortOrder,
                                 Model model) {
         int pageSize = Integer.parseInt(Objects.requireNonNull(this.environment.getProperty("page.size")));

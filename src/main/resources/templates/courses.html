@@ -17,6 +17,8 @@
         <th scope="col"> [[#{course.subject}]]</th>
         <th scope="col"> [[#{course.teacher}]]</th>
         <th scope="col"> [[#{course.language}]]</th>
+        <th scope="col"> [[#{course.students}]]</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -32,7 +34,9 @@
         <td><span th:text="${course.subject.name}"></span></td>
         <td><span th:text="${course.teacher.firstName} + ' ' + ${course.teacher.lastName}"></span></td>
         <td><span th:text="${course.language}"></span></td>
+        <td><span th:text="${course.students.size()}"></span></td>
         <td><a th:href="@{course-update/{id}(id=${course.id})}">[[#{course.edit}]]</a></td>
+        <td><a  th:href="@{course-delete/{id}(id=${course.id})}">[[#{course.delete}]]</a></td>
         <td><a  th:href="@{course-delete/{id}(id=${course.id})}">[[#{course.delete}]]</a></td>
 
         <td>

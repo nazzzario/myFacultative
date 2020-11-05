@@ -42,7 +42,7 @@ public class AdminTeacherRegistrationController {
         }
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "teacher_registration";
         }
 
         String username = userDto.getUsername();
